@@ -1,0 +1,10 @@
+name: McTestAi1
+version: '1.0.1-SNAPSHOT'
+main: org.h0x91b.mcTestAi1.McTestAi1
+api-version: '1.21'
+authors: [h0x91b]
+description: A test plugin for Minecraft
+commands:
+  createroom:
+    description: Creates a 10x10x5 room at height 200
+    usage: /<command>
