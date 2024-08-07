@@ -2,6 +2,7 @@ package org.h0x91b.mcTestAi1;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.commands.CreateRoomCommand;
 import org.h0x91b.mcTestAi1.config.Config;
@@ -14,6 +15,7 @@ import org.h0x91b.mcTestAi1.managers.QuizManager;
 
 public final class McTestAi1 extends JavaPlugin {
     private Injector injector;
+    private DayNightManager dayNightManager;
 
     @Override
     public void onEnable() {
@@ -31,7 +33,7 @@ public final class McTestAi1 extends JavaPlugin {
         // Инициализация менеджеров
         ClassroomManager classroomManager = injector.getInstance(ClassroomManager.class);
         QuizManager quizManager = injector.getInstance(QuizManager.class);
-        DayNightManager dayNightManager = injector.getInstance(DayNightManager.class);
+        this.dayNightManager = injector.getInstance(DayNightManager.class);
         InventoryManager inventoryManager = injector.getInstance(InventoryManager.class);
 
         // Регистрация команд
@@ -40,7 +42,14 @@ public final class McTestAi1 extends JavaPlugin {
         // Регистрация обработчиков событий
         getServer().getPluginManager().registerEvents(injector.getInstance(EventListener.class), this);
 
+        startDayNightCycle();
+
         getLogger().info("mcTestAi1 плагин загружен и готов отжигать!");
+    }
+
+    private void startDayNightCycle() {
+        World world = getServer().getWorlds().get(0);
+        dayNightManager.startDayNightCycle(world);
     }
 
     @Override

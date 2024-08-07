@@ -17,6 +17,7 @@ import java.util.Set;
 public class ClassroomManager {
     private final Config config;
     private final Set<Location> classroomBlocks = new HashSet<>();
+    private Location classroomLocation;
 
     @Inject
     public ClassroomManager(Config config) {
@@ -35,16 +36,16 @@ public class ClassroomManager {
         int totalLength = innerLength + 2;
         int totalHeight = innerHeight + 2;
 
-        Location roomLoc = new Location(world, playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
+        classroomLocation = new Location(world, playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
 
-        clearSpace(world, roomLoc, totalWidth, totalLength, totalHeight);
-        createWalls(world, roomLoc, totalWidth, totalLength, totalHeight);
-        createFloorAndCeiling(world, roomLoc, totalWidth, totalLength, totalHeight);
-        addTorches(world, roomLoc, totalWidth, totalLength, totalHeight);
-        addBlackboard(world, roomLoc, totalWidth, totalHeight);
+        clearSpace(world, classroomLocation, totalWidth, totalLength, totalHeight);
+        createWalls(world, classroomLocation, totalWidth, totalLength, totalHeight);
+        createFloorAndCeiling(world, classroomLocation, totalWidth, totalLength, totalHeight);
+        addTorches(world, classroomLocation, totalWidth, totalLength, totalHeight);
+        addBlackboard(world, classroomLocation, totalWidth, totalHeight);
 
         // Телепортируем игрока в центр комнаты
-        Location teleportLoc = new Location(world, roomLoc.getX() + totalWidth / 2.0, roomLoc.getY() + 1, roomLoc.getZ() + totalLength / 2.0);
+        Location teleportLoc = new Location(world, classroomLocation.getX() + totalWidth / 2.0, classroomLocation.getY() + 1, classroomLocation.getZ() + totalLength / 2.0);
         player.teleport(teleportLoc);
         player.sendMessage("Йоу, братан! Твой новый класс " + innerWidth + "x" + innerLength + "x" + innerHeight + " готов, ты телепортирован!");
     }
@@ -130,6 +131,13 @@ public class ClassroomManager {
                 classroomBlocks.add(block.getLocation());
             }
         }
+    }
+
+    public Location getClassroomLocation() {
+        if (classroomLocation == null) {
+            throw new IllegalStateException("Класс ещё не создан, братан!");
+        }
+        return classroomLocation.clone().add(1, 1, 1); // Возвращаем локацию внутри класса
     }
 
     public boolean isClassroomBlock(Location location) {
