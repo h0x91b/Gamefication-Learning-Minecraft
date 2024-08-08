@@ -6,17 +6,22 @@
 - Main plugin class `McTestAi1` with Guice dependency injection
 - Refactored project structure with separate managers and config
 - `/createroom` command for creating a classroom
-- Classroom generation with specified dimensions (15x10x5 interior)
+- Classroom generation with specified dimensions (configurable via `config.yml`)
 - Protection of classroom blocks from destruction
 - Floor creation with alternating glass and oak plank blocks
 - Addition of wall-mounted torches for lighting
 - Creation of a blackboard using black concrete
-- Hologram system using ArmorStands
-- Addition of buttons and signs for quiz (A, B, C, D)
+- Hologram system using ArmorStands for quiz questions
+- Addition of buttons for quiz answers (A, B, C, D)
 - Handling of quiz button clicks
 - Basic hologram text update system
 - Config system with `config.yml` support
 - Event listener for protecting classroom blocks
+- Day-Night cycle implementation
+- Player teleportation system (to classroom at night, back to original location at day)
+- Quiz system with hardcoded questions
+- Score tracking for correct answers
+- Dynamic day duration based on quiz performance
 
 ### Changed
 - Upgraded to Java 21
@@ -26,53 +31,20 @@
 - Classroom protection now working correctly
 
 ### Work in Progress
-- Full quiz system (questions not yet implemented)
-- Day and night system (mentioned in specification, not yet implemented)
-- Player teleportation to classroom and back (partially implemented)
+- Full integration of inventory management system
+- Proper cleanup of holograms and buttons when recreating the room
 
 ### TODO
-- Implement complete day-night cycle
-- Add question and answer system for the quiz
-- Implement score counting and day duration changes
-- Add player inventory management (deactivation at night)
-- Implement saving player coordinates before teleportation
-- Add handling of player logins depending on the time of day
 - Implement sound effects for correct/incorrect answers
+- Add admin rights check for the `/createroom` command
+- Implement error handling when creating a room
+- Add handling of player logins depending on the time of day
+- Integrate with an external API for dynamic question generation
+- Implement a leaderboard system
+- Add visual effects for correct/incorrect answers
 
 ### Known Issues
 - No admin rights check for the `/createroom` command
 - No error handling when creating a room
 - Holograms and buttons are not properly removed when recreating the room
-
-## Project Structure
-
-```
-org.h0x91b.mcTestAi1
-├── McTestAi1.java (Main plugin class)
-├── config
-│   ├── Config.java
-│   └── ConfigModule.java
-├── commands
-│   └── CreateRoomCommand.java
-├── events
-│   └── EventListener.java
-├── managers
-│   ├── ClassroomManager.java
-│   ├── QuizManager.java
-│   ├── DayNightManager.java
-│   └── InventoryManager.java
-└── resources
-    ├── plugin.yml
-    └── config.yml
-```
-
-## Key Files
-
-1. `McTestAi1.java`: Main plugin class with Guice configuration
-2. `Config.java`: Handles plugin configuration
-3. `ClassroomManager.java`: Manages classroom creation and structure
-4. `QuizManager.java`: Handles quiz functionality
-5. `EventListener.java`: Listens for events like block breaking
-6. `CreateRoomCommand.java`: Implements the /createroom command
-7. `plugin.yml`: Plugin metadata and command definitions
-8. `config.yml`: Default configuration file
+- Inventory management during night/day cycle not fully implemented
