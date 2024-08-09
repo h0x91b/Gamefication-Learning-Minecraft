@@ -176,4 +176,20 @@ public class DayNightManager {
     public boolean isNight() {
         return isNight;
     }
+
+    public void teleportPlayerToClassroom(Player player) {
+        if (!classroomManager.isClassroomCreated()) {
+            plugin.getLogger().warning("Cannot teleport player to classroom: Classroom not created");
+            return;
+        }
+
+        Location classroomLocation = classroomManager.getClassroomLocation();
+        if (classroomLocation == null) {
+            plugin.getLogger().warning("Cannot teleport player to classroom: Invalid classroom location");
+            return;
+        }
+
+        playerLocations.put(player.getUniqueId(), player.getLocation());
+        player.teleport(classroomLocation);
+    }
 }
