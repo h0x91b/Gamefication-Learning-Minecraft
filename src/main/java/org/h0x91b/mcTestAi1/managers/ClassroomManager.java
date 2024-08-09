@@ -242,9 +242,25 @@ public class ClassroomManager {
     }
 
     public boolean isClassroomBlock(Location location) {
-        return classroomBlocks.contains(location) ||
-                quizButtonLocations.contains(location) ||
-                isButtonOrSign(location.getBlock());
+        if (classroomLocation == null) {
+            return false;
+        }
+
+        int width = getClassroomWidth();
+        int length = getClassroomLength();
+        int height = getClassroomHeight();
+
+        double minX = classroomLocation.getX();
+        double minY = classroomLocation.getY();
+        double minZ = classroomLocation.getZ();
+        double maxX = minX + width;
+        double maxY = minY + height;
+        double maxZ = minZ + length;
+
+        return location.getWorld().equals(classroomLocation.getWorld()) &&
+                location.getX() >= minX && location.getX() < maxX &&
+                location.getY() >= minY && location.getY() < maxY &&
+                location.getZ() >= minZ && location.getZ() < maxZ;
     }
 
     private boolean isButtonOrSign(Block block) {

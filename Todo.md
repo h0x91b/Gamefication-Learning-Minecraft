@@ -9,7 +9,7 @@ This file contains tasks, improvements, and features that are planned or need to
 - [x] Implement admin rights check for classroom creation and management commands
 - [x] Add handling of player logins depending on the time of day (teleport to classroom if night)
 - [x] Improve error handling when creating a classroom
-- [ ] Prohibit any building or block placement within the classroom
+- [x] Prohibit any building or block placement within the classroom
 - [ ] Disable player-vs-player damage within the classroom
 - [ ] Implement a 3-second cooldown with button disappearance after an incorrect answer
 - [ ] Add a 1-second cooldown with button disappearance after a correct answer

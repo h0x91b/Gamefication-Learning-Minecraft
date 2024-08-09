@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -69,6 +70,15 @@ public class EventListener implements Listener {
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Error teleporting player on death: " + e.getMessage());
+        }
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        Location blockLocation = event.getBlock().getLocation();
+        if (classroomManager.isClassroomBlock(blockLocation)) {
+            event.setCancelled(true);
+            event.getPlayer().sendMessage("Эй, братан! В этой комнате нельзя строить!");
         }
     }
 }
