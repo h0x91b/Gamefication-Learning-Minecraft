@@ -4,7 +4,7 @@ This file contains tasks, improvements, and features that are planned or need to
 
 ## High Priority
 
-- [ ] Implement inventory management system to lock player inventories during night/quiz time
+- [x] Implement inventory management system to lock player inventories during night/quiz time
 - [ ] Add sound effects for correct/incorrect quiz answers
 - [x] Implement admin rights check for classroom creation and management commands
 - [x] Add handling of player logins depending on the time of day (teleport to classroom if night)
@@ -16,6 +16,8 @@ This file contains tasks, improvements, and features that are planned or need to
 - [ ] Move all questions and answers from code to a YAML configuration file
 - [ ] Implement language selection support for Russian, Hebrew, and English
 - [x] Show earned time after each correct answer
+- [x] Optimize classroom cleanup process to occur only once at game start
+- [ ] Improve quiz button setup and management
 
 ## Medium Priority
 

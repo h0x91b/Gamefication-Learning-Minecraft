@@ -15,6 +15,7 @@
 - Refactored timer logic in `DayNightManager` for better performance and accuracy
 - Improved classroom cleanup process
 - Enhanced quiz system with better hologram management
+- Optimized classroom cleanup to occur only once at game start, improving performance
 
 ### Removed
 - Manual `/createroom` command functionality
