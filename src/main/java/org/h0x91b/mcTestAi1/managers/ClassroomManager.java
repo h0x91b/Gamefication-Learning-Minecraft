@@ -24,9 +24,8 @@ public class ClassroomManager {
         this.config = config;
     }
 
-    public void createRoom(Player player) {
-        World world = player.getWorld();
-        Location playerLoc = player.getLocation();
+    public void createRoom(Location location) {
+        World world = location.getWorld();
 
         int innerWidth = config.getClassroomWidth();
         int innerLength = config.getClassroomLength();
@@ -36,18 +35,25 @@ public class ClassroomManager {
         int totalLength = innerLength + 2;
         int totalHeight = innerHeight + 2;
 
-        classroomLocation = new Location(world, playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
+        classroomLocation = location;
 
         clearSpace(world, classroomLocation, totalWidth, totalLength, totalHeight);
         createWalls(world, classroomLocation, totalWidth, totalLength, totalHeight);
         createFloorAndCeiling(world, classroomLocation, totalWidth, totalLength, totalHeight);
         addTorches(world, classroomLocation, totalWidth, totalLength, totalHeight);
         addBlackboard(world, classroomLocation, totalWidth, totalHeight);
+    }
+
+    // Keep the existing createRoom method for player-initiated room creation
+    public void createRoom(Player player) {
+        Location playerLoc = player.getLocation();
+        Location roomLoc = new Location(player.getWorld(), playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
+        createRoom(roomLoc);
 
         // Телепортируем игрока в центр комнаты
-        Location teleportLoc = new Location(world, classroomLocation.getX() + totalWidth / 2.0, classroomLocation.getY() + 1, classroomLocation.getZ() + totalLength / 2.0);
+        Location teleportLoc = getClassroomLocation();
         player.teleport(teleportLoc);
-        player.sendMessage("Йоу, братан! Твой новый класс " + innerWidth + "x" + innerLength + "x" + innerHeight + " готов, ты телепортирован!");
+        player.sendMessage("Йоу, братан! Твой новый класс " + config.getClassroomWidth() + "x" + config.getClassroomLength() + "x" + config.getClassroomHeight() + " готов, ты телепортирован!");
     }
 
     private void clearSpace(World world, Location roomLoc, int totalWidth, int totalLength, int totalHeight) {
@@ -131,6 +137,10 @@ public class ClassroomManager {
                 classroomBlocks.add(block.getLocation());
             }
         }
+    }
+
+    public boolean isClassroomCreated() {
+        return classroomLocation != null;
     }
 
     public Location getClassroomLocation() {

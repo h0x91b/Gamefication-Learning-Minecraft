@@ -1,6 +1,7 @@
 package org.h0x91b.mcTestAi1.managers;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -19,12 +20,12 @@ public class QuizManager {
     private final List<Question> questions = new ArrayList<>();
     private final Random random = new Random();
     private Question currentQuestion;
-    private final DayNightManager dayNightManager;
+    private final Provider<DayNightManager> dayNightManagerProvider;
 
     @Inject
-    public QuizManager(Config config, DayNightManager dayNightManager) {
+    public QuizManager(Config config, Provider<DayNightManager> dayNightManagerProvider) {
         this.config = config;
-        this.dayNightManager = dayNightManager;
+        this.dayNightManagerProvider = dayNightManagerProvider;
         initializeQuestions();
     }
 
@@ -89,7 +90,7 @@ public class QuizManager {
 
         if (isCorrect) {
             player.sendMessage(ChatColor.GREEN + "Correct answer!");
-            dayNightManager.addScore(player.getUniqueId(), 1);
+            dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
         } else {
             player.sendMessage(ChatColor.RED + "Incorrect answer. The correct answer was: " + 
                 getCorrectAnswerLetter(currentQuestion));

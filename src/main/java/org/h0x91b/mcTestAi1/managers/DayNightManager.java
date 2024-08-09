@@ -32,7 +32,16 @@ public class DayNightManager {
         this.classroomManager = classroomManager;
     }
 
+    public boolean canStartCycle() {
+        return classroomManager.isClassroomCreated();
+    }
+
     public void startDayNightCycle(World world) {
+        if (!canStartCycle()) {
+            plugin.getLogger().severe("День-ночь цикл не может начаться, потому что класс ещё не создан!");
+            return;
+        }
+
         plugin.getLogger().info("Запускаем цикл дня и ночи, епта!");
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (isNight) {
@@ -41,6 +50,9 @@ public class DayNightManager {
                 startNight(world);
             }
         }, 0L, 20L * (isNight ? nightDuration : dayDuration));
+
+        // Start with night immediately
+        startNight(world);
     }
 
     private void startDay(World world) {
@@ -68,6 +80,11 @@ public class DayNightManager {
     }
 
     private void teleportPlayersToClassroom() {
+        if (!classroomManager.isClassroomCreated()) {
+            plugin.getLogger().warning("Не удалось телепортировать игроков в класс, так как он ещё не создан!");
+            return;
+        }
+
         Location classroomLocation = classroomManager.getClassroomLocation();
         for (Player player : Bukkit.getOnlinePlayers()) {
             playerLocations.put(player.getUniqueId(), player.getLocation());

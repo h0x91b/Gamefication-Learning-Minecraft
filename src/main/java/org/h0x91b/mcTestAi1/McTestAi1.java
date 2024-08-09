@@ -3,10 +3,9 @@ package org.h0x91b.mcTestAi1;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import org.bukkit.World;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.h0x91b.mcTestAi1.commands.CreateRoomCommand;
 import org.h0x91b.mcTestAi1.config.Config;
-import org.h0x91b.mcTestAi1.config.ConfigModule;
 import org.h0x91b.mcTestAi1.events.EventListener;
 import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
@@ -16,6 +15,7 @@ import org.h0x91b.mcTestAi1.managers.QuizManager;
 public final class McTestAi1 extends JavaPlugin {
     private Injector injector;
     private DayNightManager dayNightManager;
+    private ClassroomManager classroomManager;
 
     @Override
     public void onEnable() {
@@ -31,25 +31,44 @@ public final class McTestAi1 extends JavaPlugin {
         });
 
         // Инициализация менеджеров
-        ClassroomManager classroomManager = injector.getInstance(ClassroomManager.class);
-        QuizManager quizManager = injector.getInstance(QuizManager.class);
+        this.classroomManager = injector.getInstance(ClassroomManager.class);
         this.dayNightManager = injector.getInstance(DayNightManager.class);
-        InventoryManager inventoryManager = injector.getInstance(InventoryManager.class);
+        injector.getInstance(QuizManager.class);
+        injector.getInstance(InventoryManager.class);
 
-        // Регистрация команд
-        getCommand("createroom").setExecutor(injector.getInstance(CreateRoomCommand.class));
+        // Создаем комнату автоматически
+        createClassroomIfNotExists();
 
         // Регистрация обработчиков событий
         getServer().getPluginManager().registerEvents(injector.getInstance(EventListener.class), this);
 
+        // Запуск цикла дня и ночи
         startDayNightCycle();
 
         getLogger().info("mcTestAi1 плагин загружен и готов отжигать!");
     }
 
+    private void createClassroomIfNotExists() {
+        if (!classroomManager.isClassroomCreated()) {
+            World world = getServer().getWorlds().get(0);
+            Location spawnLocation = world.getSpawnLocation();
+            
+            // Создаем комнату на высоте Y=200, используя координаты X и Z точки спавна
+            Location classroomLocation = new Location(world, spawnLocation.getX(), 200, spawnLocation.getZ());
+            
+            classroomManager.createRoom(classroomLocation);
+            getLogger().info("Автоматически создана классная комната!");
+        }
+    }
+
     private void startDayNightCycle() {
         World world = getServer().getWorlds().get(0);
-        dayNightManager.startDayNightCycle(world);
+        if (dayNightManager.canStartCycle()) {
+            dayNightManager.startDayNightCycle(world);
+            getLogger().info("День-ночь цикл успешно запущен!");
+        } else {
+            getLogger().warning("День-ночь цикл не может быть запущен. Проверьте, создана ли классная комната.");
+        }
     }
 
     @Override
