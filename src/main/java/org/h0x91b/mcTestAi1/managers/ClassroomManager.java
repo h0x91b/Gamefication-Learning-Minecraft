@@ -6,18 +6,23 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.Directional;
+import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
 import org.h0x91b.mcTestAi1.config.Config;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ClassroomManager {
     private final Config config;
     private final Set<Location> classroomBlocks = new HashSet<>();
     private Location classroomLocation;
+    private List<Location> quizButtonLocations = new ArrayList<>();
 
     @Inject
     public ClassroomManager(Config config) {
@@ -25,6 +30,8 @@ public class ClassroomManager {
     }
 
     public void createRoom(Location location) {
+        cleanupExistingClassroom();
+
         World world = location.getWorld();
 
         int innerWidth = config.getClassroomWidth();
@@ -42,9 +49,13 @@ public class ClassroomManager {
         createFloorAndCeiling(world, classroomLocation, totalWidth, totalLength, totalHeight);
         addTorches(world, classroomLocation, totalWidth, totalLength, totalHeight);
         addBlackboard(world, classroomLocation, totalWidth, totalHeight);
+        addQuizButtons(world, classroomLocation, totalWidth, totalLength, totalHeight);
     }
 
     public void createRoom(Player player) {
+        if (player == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
         Location playerLoc = player.getLocation();
         Location roomLoc = new Location(player.getWorld(), playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
         createRoom(roomLoc);
@@ -53,6 +64,24 @@ public class ClassroomManager {
         Location teleportLoc = getClassroomLocation();
         player.teleport(teleportLoc);
         player.sendMessage("Йоу, братан! Твой новый класс " + config.getClassroomWidth() + "x" + config.getClassroomLength() + "x" + config.getClassroomHeight() + " готов, ты телепортирован!");
+    }
+
+    private void cleanupExistingClassroom() {
+        if (classroomLocation == null) return;
+
+        World world = classroomLocation.getWorld();
+        if (world == null) return;
+
+        for (Location location : classroomBlocks) {
+            Block block = world.getBlockAt(location);
+            if (isClassroomBlock(location)) {
+                block.setType(Material.AIR);
+            }
+        }
+
+        classroomBlocks.clear();
+        quizButtonLocations.clear();
+        classroomLocation = null;
     }
 
     private void clearSpace(World world, Location roomLoc, int totalWidth, int totalLength, int totalHeight) {
@@ -138,6 +167,49 @@ public class ClassroomManager {
         }
     }
 
+    private void addQuizButtons(World world, Location roomLoc, int totalWidth, int totalLength, int totalHeight) {
+        int buttonY = 2; // Height at which to place buttons
+        int spacing = 2; // Spaces between buttons
+        int numButtons = 4; // Number of buttons (A, B, C, D)
+
+        int totalButtonWidth = (numButtons * 1) + ((numButtons - 1) * spacing); // 1 block per button + spaces
+        int startX = (totalWidth - totalButtonWidth) / 2; // Center the buttons
+
+        // Place buttons on the front wall
+        for (int i = 0; i < numButtons; i++) {
+            int x = startX + (i * (1 + spacing));
+            Location buttonLoc = new Location(world, roomLoc.getBlockX() + x, roomLoc.getBlockY() + buttonY, roomLoc.getBlockZ() + 1);
+            addQuizButton(world, buttonLoc, BlockFace.SOUTH);
+        }
+    }
+
+    private void addQuizButton(World world, Location location, BlockFace facing) {
+        Block buttonBlock = world.getBlockAt(location);
+        buttonBlock.setType(Material.OAK_BUTTON);
+        BlockData blockData = buttonBlock.getBlockData();
+        if (blockData instanceof Directional) {
+            ((Directional) blockData).setFacing(facing);
+            buttonBlock.setBlockData(blockData);
+        }
+        quizButtonLocations.add(location);
+        classroomBlocks.add(location);
+
+        Block signBlock = world.getBlockAt(location.clone().add(0, 1, 0));
+        signBlock.setType(Material.OAK_WALL_SIGN);
+        BlockData signData = signBlock.getBlockData();
+        if (signData instanceof WallSign) {
+            ((WallSign) signData).setFacing(facing);
+            signBlock.setBlockData(signData);
+        }
+        if (signBlock.getState() instanceof Sign) {
+            Sign sign = (Sign) signBlock.getState();
+            sign.setLine(0, "Quiz");
+            sign.setLine(1, "Button");
+            sign.update();
+        }
+        classroomBlocks.add(signBlock.getLocation());
+    }
+
     public boolean isClassroomCreated() {
         return classroomLocation != null;
     }
@@ -149,16 +221,31 @@ public class ClassroomManager {
         int width = config.getClassroomWidth();
         int length = config.getClassroomLength();
         int height = config.getClassroomHeight();
-        
+
         // Вычисляем центр комнаты
         double centerX = classroomLocation.getX() + (width / 2.0) + 1;
         double centerY = classroomLocation.getY() + 1;
         double centerZ = classroomLocation.getZ() + (length / 2.0) + 1;
-        
+
         return new Location(classroomLocation.getWorld(), centerX, centerY, centerZ);
     }
 
     public boolean isClassroomBlock(Location location) {
-        return classroomBlocks.contains(location);
+        return classroomBlocks.contains(location) ||
+                quizButtonLocations.contains(location) ||
+                isButtonOrSign(location.getBlock());
+    }
+
+    private boolean isButtonOrSign(Block block) {
+        return block.getType() == Material.OAK_BUTTON ||
+                block.getType() == Material.OAK_WALL_SIGN;
+    }
+
+    public List<Location> getQuizButtonLocations() {
+        return new ArrayList<>(quizButtonLocations);
+    }
+
+    public void cleanup() {
+        cleanupExistingClassroom();
     }
 }

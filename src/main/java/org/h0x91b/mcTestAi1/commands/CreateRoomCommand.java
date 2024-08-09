@@ -17,11 +17,22 @@ public class CreateRoomCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (sender instanceof Player) {
-            classroomManager.createRoom((Player) sender);
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("This command can only be used by players!");
+            return false;
+        }
+        
+        Player player = (Player) sender;
+        if (!player.hasPermission("mctestai1.createroom")) {
+            player.sendMessage("You don't have permission to create a classroom!");
+            return false;
+        }
+
+        try {
+            classroomManager.createRoom(player);
             return true;
-        } else {
-            sender.sendMessage("Эта команда только для игроков, чувак!");
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            player.sendMessage("Error creating classroom: " + e.getMessage());
             return false;
         }
     }

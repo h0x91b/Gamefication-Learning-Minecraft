@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.events.EventListener;
+import org.h0x91b.mcTestAi1.listeners.ButtonClickListener;
 import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.h0x91b.mcTestAi1.managers.InventoryManager;
@@ -16,6 +17,7 @@ public final class McTestAi1 extends JavaPlugin {
     private Injector injector;
     private DayNightManager dayNightManager;
     private ClassroomManager classroomManager;
+    private QuizManager quizManager;
 
     @Override
     public void onEnable() {
@@ -28,12 +30,13 @@ public final class McTestAi1 extends JavaPlugin {
             binder.bind(DayNightManager.class).asEagerSingleton();
             binder.bind(InventoryManager.class).asEagerSingleton();
             binder.bind(EventListener.class).asEagerSingleton();
+            binder.bind(ButtonClickListener.class).asEagerSingleton();
         });
 
         // Инициализация менеджеров
         this.classroomManager = injector.getInstance(ClassroomManager.class);
         this.dayNightManager = injector.getInstance(DayNightManager.class);
-        injector.getInstance(QuizManager.class);
+        this.quizManager = injector.getInstance(QuizManager.class);
         injector.getInstance(InventoryManager.class);
 
         // Создаем комнату автоматически
@@ -41,6 +44,7 @@ public final class McTestAi1 extends JavaPlugin {
 
         // Регистрация обработчиков событий
         getServer().getPluginManager().registerEvents(injector.getInstance(EventListener.class), this);
+        getServer().getPluginManager().registerEvents(injector.getInstance(ButtonClickListener.class), this);
 
         // Запуск цикла дня и ночи
         startDayNightCycle();
@@ -73,6 +77,15 @@ public final class McTestAi1 extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (dayNightManager != null) {
+            dayNightManager.stopTimer();
+        }
+        if (quizManager != null) {
+            quizManager.cleanupQuiz();
+        }
+        if (classroomManager != null) {
+            classroomManager.cleanup();
+        }
         getLogger().info("mcTestAi1 плагин выключается. Пока, пацаны!");
     }
 }
