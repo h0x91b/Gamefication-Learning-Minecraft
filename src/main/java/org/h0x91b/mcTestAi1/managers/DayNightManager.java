@@ -13,12 +13,14 @@ import org.h0x91b.mcTestAi1.config.Config;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class DayNightManager {
     private final JavaPlugin plugin;
     private final Config config;
     private final QuizManager quizManager;
     private final ClassroomManager classroomManager;
+    private final Logger logger;
 
     private boolean isNight = false;
     private int dayDuration = 30; // начальная длительность дня в секундах
@@ -36,6 +38,7 @@ public class DayNightManager {
         this.config = config;
         this.quizManager = quizManager;
         this.classroomManager = classroomManager;
+        this.logger = plugin.getLogger();
     }
 
     public boolean canStartCycle() {
@@ -75,6 +78,18 @@ public class DayNightManager {
         isNight = true;
         world.setTime(13000); // установка времени на ночь
         Bukkit.broadcastMessage("Наступила ночь, народ! Погнали на уроки!");
+
+        try {
+            logger.info("Starting classroom cleanup...");
+            classroomManager.cleanupClassroomContents();
+            quizManager.cleanupQuiz();
+            logger.info("Classroom cleanup completed.");
+        } catch (Exception e) {
+            logger.severe("Error cleaning up classroom contents: " + e.getMessage());
+            e.printStackTrace();
+            // Continue with the night cycle even if cleanup fails
+        }
+
         teleportPlayersToClassroom();
 
         remainingTime = nightDuration;

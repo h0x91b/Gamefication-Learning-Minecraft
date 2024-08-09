@@ -90,57 +90,14 @@ public final class McTestAi1 extends JavaPlugin {
             quizManager.removeAllHolograms();
             quizManager.cleanupQuiz();
         }
-        if (classroomManager != null) {
-            cleanupClassroom();
+        if (classroomManager != null && classroomManager.isClassroomCreated()) {
+            try {
+                classroomManager.cleanupClassroomContents();
+            } catch (Exception e) {
+                getLogger().severe("Error during final classroom cleanup: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
         getLogger().info("mcTestAi1 плагин выключается. Пока, пацаны!");
-    }
-
-    private void cleanupClassroom() {
-        if (!classroomManager.isClassroomCreated()) {
-            return;
-        }
-
-        Location classroomLocation = classroomManager.getClassroomLocation();
-        World world = classroomLocation.getWorld();
-        int width = classroomManager.getClassroomWidth();
-        int length = classroomManager.getClassroomLength();
-        int height = classroomManager.getClassroomHeight();
-
-        // Define the classroom boundaries
-        int minX = classroomLocation.getBlockX();
-        int minY = classroomLocation.getBlockY();
-        int minZ = classroomLocation.getBlockZ();
-        int maxX = minX + width;
-        int maxY = minY + height;
-        int maxZ = minZ + length;
-
-        // Remove all entities within the classroom boundaries
-        for (Entity entity : world.getEntities()) {
-            Location loc = entity.getLocation();
-            if (loc.getBlockX() >= minX && loc.getBlockX() < maxX &&
-                loc.getBlockY() >= minY && loc.getBlockY() < maxY &&
-                loc.getBlockZ() >= minZ && loc.getBlockZ() < maxZ) {
-                
-                // Remove all entities except players
-                if (!(entity instanceof Player)) {
-                    entity.remove();
-                }
-            }
-        }
-
-        // Remove all non-structural blocks (like buttons, signs, etc.)
-        for (int x = minX; x < maxX; x++) {
-            for (int y = minY; y < maxY; y++) {
-                for (int z = minZ; z < maxZ; z++) {
-                    Block block = world.getBlockAt(x, y, z);
-                    if (!classroomManager.isStructuralBlock(block)) {
-                        block.setType(Material.AIR);
-                    }
-                }
-            }
-        }
-
-        classroomManager.cleanup();
     }
 }

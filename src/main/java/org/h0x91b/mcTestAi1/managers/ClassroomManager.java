@@ -14,6 +14,7 @@ import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -278,5 +279,48 @@ public class ClassroomManager {
 
     public int getClassroomHeight() {
         return config.getClassroomHeight() + 2; // Add 2 for floor and ceiling
+    }
+
+    public void cleanupClassroomContents() {
+        if (!isClassroomCreated()) {
+            logger.warning("Attempted to clean up classroom contents, but classroom is not created.");
+            return;
+        }
+
+        Location classroomLocation = getClassroomLocation();
+        World world = classroomLocation.getWorld();
+        int width = getClassroomWidth();
+        int length = getClassroomLength();
+        int height = getClassroomHeight();
+
+        // Define the classroom boundaries
+        int minX = classroomLocation.getBlockX();
+        int minY = classroomLocation.getBlockY();
+        int minZ = classroomLocation.getBlockZ();
+        int maxX = minX + width;
+        int maxY = minY + height;
+        int maxZ = minZ + length;
+
+        // Remove all entities within the classroom boundaries
+        world.getEntities().stream()
+            .filter(entity -> !(entity instanceof Player))
+            .filter(entity -> entity.getLocation().getBlockX() >= minX && entity.getLocation().getBlockX() < maxX
+                           && entity.getLocation().getBlockY() >= minY && entity.getLocation().getBlockY() < maxY
+                           && entity.getLocation().getBlockZ() >= minZ && entity.getLocation().getBlockZ() < maxZ)
+            .forEach(Entity::remove);
+
+        // Remove all non-structural blocks
+        for (int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                for (int z = minZ; z < maxZ; z++) {
+                    Block block = world.getBlockAt(x, y, z);
+                    if (!isStructuralBlock(block)) {
+                        block.setType(Material.AIR);
+                    }
+                }
+            }
+        }
+
+        logger.info("Classroom contents cleaned up successfully.");
     }
 }

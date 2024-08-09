@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
+import org.bukkit.Material;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class QuizManager {
         this.classroomManager = classroomManager;
         this.logger = plugin.getLogger();
         initializeQuestions();
-        updateQuizButtonLocations(); // Add this line
+        updateQuizButtonLocations();
     }
 
     private void updateQuizButtonLocations() {
@@ -58,8 +59,8 @@ public class QuizManager {
         if (questions.isEmpty()) {
             throw new IllegalStateException("No questions available for the quiz!");
         }
-        removeAllHolograms(); // Ensure thorough cleanup before starting a new quiz
-        updateQuizButtonLocations(); // Update button locations before starting the quiz
+        removeAllHolograms();
+        updateQuizButtonLocations();
         currentQuestion = questions.get(random.nextInt(questions.size()));
         updateQuizButtons();
         updateHologramWithCurrentQuestion();
@@ -79,7 +80,6 @@ public class QuizManager {
             return;
         }
 
-        // Calculate hologram position (closer to the button wall)
         Location hologramLocation = classroomLocation.clone().add(0, 2, 1);
 
         createHologramLine(world, hologramLocation, ChatColor.GOLD + "Question:");
@@ -170,7 +170,7 @@ public class QuizManager {
                     getCorrectAnswerLetter(currentQuestion));
         }
 
-        startQuiz(); // Move to the next question
+        startQuiz();
     }
 
     private String getCorrectAnswerLetter(Question question) {
@@ -179,17 +179,7 @@ public class QuizManager {
                 return String.valueOf((char)('A' + i));
             }
         }
-        return "?"; // This should never happen if the question is properly formed
-    }
-
-    public void cleanupQuiz() {
-        removeExistingHolograms();
-        currentQuestion = null;
-    }
-
-    public void endQuiz() {
-        currentQuestion = null;
-        removeExistingHolograms();
+        return "?";
     }
 
     public void removeAllHolograms() {
@@ -200,13 +190,57 @@ public class QuizManager {
             Location classroomLocation = classroomManager.getClassroomLocation();
             World world = classroomLocation.getWorld();
             if (world != null) {
-                for (Entity entity : world.getEntities()) {
-                    if (entity instanceof ArmorStand && isInClassroom(entity.getLocation())) {
+                int width = classroomManager.getClassroomWidth();
+                int length = classroomManager.getClassroomLength();
+                int height = classroomManager.getClassroomHeight();
+
+                int minX = classroomLocation.getBlockX() - (width / 2);
+                int minY = classroomLocation.getBlockY() - 1;
+                int minZ = classroomLocation.getBlockZ() - (length / 2);
+                int maxX = minX + width;
+                int maxY = minY + height;
+                int maxZ = minZ + length;
+
+                world.getEntities().stream()
+                    .filter(entity -> entity instanceof ArmorStand)
+                    .filter(entity -> {
+                        Location loc = entity.getLocation();
+                        return loc.getBlockX() >= minX && loc.getBlockX() < maxX
+                            && loc.getBlockY() >= minY && loc.getBlockY() < maxY
+                            && loc.getBlockZ() >= minZ && loc.getBlockZ() < maxZ;
+                    })
+                    .forEach(entity -> {
+                        logger.info("Removing stray hologram: " + entity.getCustomName() + " at " + entity.getLocation());
                         entity.remove();
-                    }
-                }
+                    });
             }
         }
+    }
+
+    public void cleanupQuiz() {
+        removeAllHolograms();
+        currentQuestion = null;
+        // Remove quiz buttons and signs
+        if (classroomManager.isClassroomCreated()) {
+            quizButtonLocations.forEach(location -> {
+                Block block = location.getBlock();
+                if (block.getType() == Material.OAK_BUTTON) {
+                    logger.info("Removing quiz button at " + location);
+                    block.setType(Material.AIR);
+                }
+                Block signBlock = location.clone().add(0, 1, 0).getBlock();
+                if (signBlock.getState() instanceof Sign) {
+                    logger.info("Removing quiz sign at " + signBlock.getLocation());
+                    signBlock.setType(Material.AIR);
+                }
+            });
+            quizButtonLocations.clear();
+        }
+    }
+
+    public void endQuiz() {
+        currentQuestion = null;
+        removeExistingHolograms();
     }
 
     private boolean isInClassroom(Location location) {
