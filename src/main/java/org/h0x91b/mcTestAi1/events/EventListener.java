@@ -1,6 +1,8 @@
 package org.h0x91b.mcTestAi1.events;
 
 import com.google.inject.Inject;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -9,17 +11,20 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.h0x91b.mcTestAi1.config.Config;
 
 public class EventListener implements Listener {
     private final ClassroomManager classroomManager;
     private final DayNightManager dayNightManager;
     private final JavaPlugin plugin;
+    private final Config config;
 
     @Inject
-    public EventListener(ClassroomManager classroomManager, DayNightManager dayNightManager, JavaPlugin plugin) {
+    public EventListener(ClassroomManager classroomManager, DayNightManager dayNightManager, JavaPlugin plugin, Config config) {
         this.classroomManager = classroomManager;
         this.dayNightManager = dayNightManager;
         this.plugin = plugin;
+        this.config = config;
     }
 
     @EventHandler
@@ -36,6 +41,10 @@ public class EventListener implements Listener {
             if (dayNightManager.isNight() && classroomManager.isClassroomCreated()) {
                 dayNightManager.teleportPlayerToClassroom(event.getPlayer());
                 event.getPlayer().sendMessage("Welcome! It's currently night, so you've been teleported to the classroom.");
+            } else {
+                Location dayLocation = config.getDayLocation(Bukkit.getWorlds().get(0));
+                event.getPlayer().teleport(dayLocation);
+                event.getPlayer().sendMessage("Welcome! It's currently day, so you've been teleported to the day location.");
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Error teleporting player on join: " + e.getMessage());
@@ -50,6 +59,12 @@ public class EventListener implements Listener {
                 plugin.getServer().getScheduler().runTask(plugin, () -> {
                     dayNightManager.teleportPlayerToClassroom(event.getEntity());
                     event.getEntity().sendMessage("You died during the night, so you've been teleported to the classroom.");
+                });
+            } else {
+                plugin.getServer().getScheduler().runTask(plugin, () -> {
+                    Location dayLocation = config.getDayLocation(Bukkit.getWorlds().get(0));
+                    event.getEntity().teleport(dayLocation);
+                    event.getEntity().sendMessage("You died during the day, so you've been teleported to the day location.");
                 });
             }
         } catch (Exception e) {

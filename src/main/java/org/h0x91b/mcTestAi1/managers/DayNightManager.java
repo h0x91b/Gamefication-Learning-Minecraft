@@ -63,7 +63,7 @@ public class DayNightManager {
             quizManager.removeAllHolograms(); // Ensure thorough cleanup of holograms
             quizManager.endQuiz();
         }
-        teleportPlayersBack();
+        teleportPlayersToDayLocation();
 
         // Расчёт новой длительности дня
         int totalScore = playerScores.values().stream().mapToInt(Integer::intValue).sum();
@@ -119,7 +119,7 @@ public class DayNightManager {
     private void startFinalCountdown() {
         countdownTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (remainingTime > 0) {
-                if(remainingTime <= 5) broadcastRemainingTime(remainingTime);
+                if(remainingTime <= 5 || remainingTime == 10) broadcastRemainingTime(remainingTime);
                 remainingTime--;
             } else {
                 countdownTask.cancel();
@@ -171,17 +171,19 @@ public class DayNightManager {
         }
     }
 
-    private void teleportPlayersBack() {
+    private void teleportPlayersToDayLocation() {
+        World targetWorld = Bukkit.getWorlds().get(0); // Get the main world
+        Location dayLocation = config.getDayLocation(targetWorld);
+
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Location originalLocation = playerLocations.get(player.getUniqueId());
-            if (originalLocation != null) {
-                player.teleport(originalLocation);
-            } else {
-                // Если не знаем, где был игрок, телепортируем его на спавн
-                player.teleport(player.getWorld().getSpawnLocation());
+            try {
+                player.teleport(dayLocation);
+                logger.info("Teleported player " + player.getName() + " to day location: " + dayLocation);
+            } catch (Exception e) {
+                logger.severe("Failed to teleport player " + player.getName() + " to day location: " + e.getMessage());
             }
         }
-        playerLocations.clear();
+        playerLocations.clear(); // Clear saved locations as they're no longer needed
     }
 
     public void addScore(UUID playerId, int score) {
