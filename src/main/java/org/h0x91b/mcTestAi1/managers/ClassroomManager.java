@@ -56,6 +56,9 @@ public class ClassroomManager {
         addTorches(world, classroomLocation, totalWidth, totalLength, totalHeight);
         addBlackboard(world, classroomLocation, totalWidth, totalHeight);
         addQuizButtons(world, classroomLocation, totalWidth, totalLength, totalHeight);
+
+        // Clean up any remaining entities or blocks after room creation
+        cleanupClassroomContents();
     }
 
     public void createRoom(Player player) {

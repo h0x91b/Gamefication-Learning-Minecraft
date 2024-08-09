@@ -80,14 +80,12 @@ public class DayNightManager {
         Bukkit.broadcastMessage("Наступила ночь, народ! Погнали на уроки!");
 
         try {
-            logger.info("Starting classroom cleanup...");
-            classroomManager.cleanupClassroomContents();
+            logger.info("Resetting quiz for the night...");
             quizManager.cleanupQuiz();
-            logger.info("Classroom cleanup completed.");
+            logger.info("Quiz reset completed.");
         } catch (Exception e) {
-            logger.severe("Error cleaning up classroom contents: " + e.getMessage());
+            logger.severe("Error resetting quiz: " + e.getMessage());
             e.printStackTrace();
-            // Continue with the night cycle even if cleanup fails
         }
 
         teleportPlayersToClassroom();

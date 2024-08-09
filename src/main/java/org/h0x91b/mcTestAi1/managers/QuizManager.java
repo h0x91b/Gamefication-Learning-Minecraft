@@ -229,24 +229,10 @@ public class QuizManager {
     }
 
     public void cleanupQuiz() {
+        logger.info("Resetting quiz state...");
         removeAllHolograms();
         currentQuestion = null;
-        // Remove quiz buttons and signs
-        if (classroomManager.isClassroomCreated()) {
-            quizButtonLocations.forEach(location -> {
-                Block block = location.getBlock();
-                if (block.getType() == Material.OAK_BUTTON) {
-                    logger.info("Removing quiz button at " + location);
-                    block.setType(Material.AIR);
-                }
-                Block signBlock = location.clone().add(0, 1, 0).getBlock();
-                if (signBlock.getState() instanceof Sign) {
-                    logger.info("Removing quiz sign at " + signBlock.getLocation());
-                    signBlock.setType(Material.AIR);
-                }
-            });
-            quizButtonLocations.clear();
-        }
+        logger.info("Quiz state reset completed.");
     }
 
     public void endQuiz() {
