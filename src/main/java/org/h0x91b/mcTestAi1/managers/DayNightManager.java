@@ -56,7 +56,10 @@ public class DayNightManager {
         isNight = false;
         world.setTime(0); // установка времени на рассвет
         Bukkit.broadcastMessage("Наступил день, епта! Погнали на волю!");
-        quizManager.endQuiz();
+        if (quizManager != null) {
+            quizManager.removeAllHolograms(); // Ensure thorough cleanup of holograms
+            quizManager.endQuiz();
+        }
         teleportPlayersBack();
 
         // Расчёт новой длительности дня

@@ -1,6 +1,7 @@
 package org.h0x91b.mcTestAi1.managers;
 
 import com.google.inject.Inject;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -179,11 +180,11 @@ public class ClassroomManager {
         for (int i = 0; i < numButtons; i++) {
             int x = startX + (i * (1 + spacing));
             Location buttonLoc = new Location(world, roomLoc.getBlockX() + x, roomLoc.getBlockY() + buttonY, roomLoc.getBlockZ() + 1);
-            addQuizButton(world, buttonLoc, BlockFace.SOUTH);
+            addQuizButton(world, buttonLoc, BlockFace.SOUTH, i);
         }
     }
 
-    private void addQuizButton(World world, Location location, BlockFace facing) {
+    private void addQuizButton(World world, Location location, BlockFace facing, int buttonIndex) {
         Block buttonBlock = world.getBlockAt(location);
         buttonBlock.setType(Material.OAK_BUTTON);
         BlockData blockData = buttonBlock.getBlockData();
@@ -203,9 +204,9 @@ public class ClassroomManager {
         }
         if (signBlock.getState() instanceof Sign) {
             Sign sign = (Sign) signBlock.getState();
-            sign.setLine(0, "Quiz");
-            sign.setLine(1, "Button");
-            sign.update();
+            sign.setLine(0, ChatColor.BOLD + String.valueOf((char)('A' + buttonIndex)));
+            sign.setLine(1, "");
+            sign.update(true);
         }
         classroomBlocks.add(signBlock.getLocation());
     }

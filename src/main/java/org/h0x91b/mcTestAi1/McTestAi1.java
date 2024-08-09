@@ -12,6 +12,9 @@ import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.h0x91b.mcTestAi1.managers.InventoryManager;
 import org.h0x91b.mcTestAi1.managers.QuizManager;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ArmorStand;
 
 public final class McTestAi1 extends JavaPlugin {
     private Injector injector;
@@ -81,10 +84,19 @@ public final class McTestAi1 extends JavaPlugin {
             dayNightManager.stopTimer();
         }
         if (quizManager != null) {
+            quizManager.removeAllHolograms();
             quizManager.cleanupQuiz();
         }
         if (classroomManager != null) {
             classroomManager.cleanup();
+        }
+        // Perform a final sweep to remove any remaining entities
+        for (World world : Bukkit.getWorlds()) {
+            for (Entity entity : world.getEntities()) {
+                if (entity instanceof ArmorStand && ((ArmorStand) entity).isMarker()) {
+                    entity.remove();
+                }
+            }
         }
         getLogger().info("mcTestAi1 плагин выключается. Пока, пацаны!");
     }

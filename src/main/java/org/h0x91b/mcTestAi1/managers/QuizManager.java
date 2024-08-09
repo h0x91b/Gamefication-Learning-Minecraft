@@ -5,8 +5,10 @@ import com.google.inject.Provider;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
@@ -47,6 +49,7 @@ public class QuizManager {
         if (questions.isEmpty()) {
             throw new IllegalStateException("No questions available for the quiz!");
         }
+        removeAllHolograms(); // Ensure thorough cleanup before starting a new quiz
         currentQuestion = questions.get(random.nextInt(questions.size()));
         updateQuizButtons();
         updateHologramWithCurrentQuestion();
@@ -104,17 +107,20 @@ public class QuizManager {
 
         for (int i = 0; i < quizButtonLocations.size() && i < currentQuestion.getAnswers().size(); i++) {
             Location buttonLoc = quizButtonLocations.get(i);
-            updateButtonSign(buttonLoc, currentQuestion.getAnswers().get(i));
+            String answerText = currentQuestion.getAnswers().get(i);
+            String buttonLabel = String.valueOf((char)('A' + i));
+            updateButtonSign(buttonLoc, buttonLabel, answerText);
         }
     }
 
-    private void updateButtonSign(Location buttonLoc, String answerText) {
+    private void updateButtonSign(Location buttonLoc, String buttonLabel, String answerText) {
         Location signLoc = buttonLoc.clone().add(0, 1, 0);
-        if (signLoc.getBlock().getState() instanceof Sign) {
-            Sign sign = (Sign) signLoc.getBlock().getState();
-            sign.setLine(1, String.valueOf((char)('A' + quizButtonLocations.indexOf(buttonLoc))));
-            sign.setLine(2, answerText);
-            sign.update();
+        Block signBlock = signLoc.getBlock();
+        if (signBlock.getState() instanceof Sign) {
+            Sign sign = (Sign) signBlock.getState();
+            sign.setLine(0, ChatColor.BOLD + buttonLabel);
+            sign.setLine(1, answerText);
+            sign.update(true);
         }
     }
 
@@ -160,5 +166,37 @@ public class QuizManager {
     public void endQuiz() {
         currentQuestion = null;
         removeExistingHolograms();
+    }
+
+    public void removeAllHolograms() {
+        removeExistingHolograms(); // Remove holograms tracked by this class
+
+        // Remove any stray holograms in the classroom
+        if (classroomManager.isClassroomCreated()) {
+            Location classroomLocation = classroomManager.getClassroomLocation();
+            World world = classroomLocation.getWorld();
+            if (world != null) {
+                for (Entity entity : world.getEntities()) {
+                    if (entity instanceof ArmorStand && isInClassroom(entity.getLocation())) {
+                        entity.remove();
+                    }
+                }
+            }
+        }
+    }
+
+    private boolean isInClassroom(Location location) {
+        if (!classroomManager.isClassroomCreated()) {
+            return false;
+        }
+        Location classroomLoc = classroomManager.getClassroomLocation();
+        int width = config.getClassroomWidth();
+        int length = config.getClassroomLength();
+        int height = config.getClassroomHeight();
+
+        return location.getWorld().equals(classroomLoc.getWorld()) &&
+               location.getX() >= classroomLoc.getX() && location.getX() < classroomLoc.getX() + width &&
+               location.getY() >= classroomLoc.getY() && location.getY() < classroomLoc.getY() + height &&
+               location.getZ() >= classroomLoc.getZ() && location.getZ() < classroomLoc.getZ() + length;
     }
 }
