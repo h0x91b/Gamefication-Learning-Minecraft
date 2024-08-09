@@ -10,30 +10,39 @@ import org.bukkit.block.Sign;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class QuizManager {
     private final Config config;
     private final List<ArmorStand> holograms = new ArrayList<>();
-    private final List<Location> quizButtonLocations;
+    private List<Location> quizButtonLocations;
     private final List<Question> questions = new ArrayList<>();
     private final Random random = new Random();
     private Question currentQuestion;
     private final Provider<DayNightManager> dayNightManagerProvider;
     private final ClassroomManager classroomManager;
+    private final Logger logger;
 
     @Inject
-    public QuizManager(Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
+    public QuizManager(JavaPlugin plugin, Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
         this.config = config;
         this.dayNightManagerProvider = dayNightManagerProvider;
         this.classroomManager = classroomManager;
-        this.quizButtonLocations = classroomManager.getQuizButtonLocations();
+        this.logger = plugin.getLogger();
         initializeQuestions();
+        updateQuizButtonLocations(); // Add this line
+    }
+
+    private void updateQuizButtonLocations() {
+        this.quizButtonLocations = classroomManager.getQuizButtonLocations();
+        logger.info("Updated quiz button locations: " + quizButtonLocations);
     }
 
     private void initializeQuestions() {
@@ -50,6 +59,7 @@ public class QuizManager {
             throw new IllegalStateException("No questions available for the quiz!");
         }
         removeAllHolograms(); // Ensure thorough cleanup before starting a new quiz
+        updateQuizButtonLocations(); // Update button locations before starting the quiz
         currentQuestion = questions.get(random.nextInt(questions.size()));
         updateQuizButtons();
         updateHologramWithCurrentQuestion();
@@ -130,7 +140,21 @@ public class QuizManager {
             return;
         }
 
-        int index = quizButtonLocations.indexOf(buttonLoc);
+        int index = -1;
+        for (int i = 0; i < quizButtonLocations.size(); i++) {
+            Location loc = quizButtonLocations.get(i);
+            if (buttonLoc.getBlockX() == loc.getBlockX() &&
+                buttonLoc.getBlockY() == loc.getBlockY() &&
+                buttonLoc.getBlockZ() == loc.getBlockZ()) {
+                index = i;
+                break;
+            }
+        }
+
+        logger.info("Player " + player.getName() + " clicked button at location: " + buttonLoc);
+        logger.info("Button index: " + index);
+        logger.info("Quiz button locations: " + quizButtonLocations);
+
         if (index == -1 || index >= currentQuestion.getAnswers().size()) {
             player.sendMessage(ChatColor.RED + "Invalid answer!");
             return;

@@ -55,7 +55,7 @@ public class DayNightManager {
     private void startDay(World world) {
         isNight = false;
         world.setTime(0); // установка времени на рассвет
-        Bukkit.broadcastMessage("Наступил день, епта! Погнали на волю!");
+        Bukkit.broadcastMessage("Наступил день! Погнали на волю!");
         if (quizManager != null) {
             quizManager.removeAllHolograms(); // Ensure thorough cleanup of holograms
             quizManager.endQuiz();
@@ -104,7 +104,7 @@ public class DayNightManager {
     private void startFinalCountdown() {
         countdownTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (remainingTime > 0) {
-                broadcastRemainingTime(remainingTime);
+                if(remainingTime <= 5) broadcastRemainingTime(remainingTime);
                 remainingTime--;
             } else {
                 countdownTask.cancel();

@@ -13,21 +13,25 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
 import org.h0x91b.mcTestAi1.config.Config;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 public class ClassroomManager {
     private final Config config;
     private final Set<Location> classroomBlocks = new HashSet<>();
     private Location classroomLocation;
     private List<Location> quizButtonLocations = new ArrayList<>();
+    private final Logger logger;
 
     @Inject
-    public ClassroomManager(Config config) {
+    public ClassroomManager(JavaPlugin plugin, Config config) {
         this.config = config;
+        this.logger = plugin.getLogger();
     }
 
     public void createRoom(Location location) {
@@ -169,6 +173,7 @@ public class ClassroomManager {
     }
 
     private void addQuizButtons(World world, Location roomLoc, int totalWidth, int totalLength, int totalHeight) {
+        quizButtonLocations.clear(); // Clear existing button locations
         int buttonY = 2; // Height at which to place buttons
         int spacing = 2; // Spaces between buttons
         int numButtons = 4; // Number of buttons (A, B, C, D)
@@ -182,6 +187,8 @@ public class ClassroomManager {
             Location buttonLoc = new Location(world, roomLoc.getBlockX() + x, roomLoc.getBlockY() + buttonY, roomLoc.getBlockZ() + 1);
             addQuizButton(world, buttonLoc, BlockFace.SOUTH, i);
         }
+        
+        logger.info("Quiz buttons added. Total buttons: " + quizButtonLocations.size());
     }
 
     private void addQuizButton(World world, Location location, BlockFace facing, int buttonIndex) {
@@ -194,6 +201,8 @@ public class ClassroomManager {
         }
         quizButtonLocations.add(location);
         classroomBlocks.add(location);
+
+        logger.info("Added quiz button at location: " + location);
 
         Block signBlock = world.getBlockAt(location.clone().add(0, 1, 0));
         signBlock.setType(Material.OAK_WALL_SIGN);
@@ -243,10 +252,31 @@ public class ClassroomManager {
     }
 
     public List<Location> getQuizButtonLocations() {
+        logger.info("Retrieving quiz button locations: " + quizButtonLocations);
         return new ArrayList<>(quizButtonLocations);
     }
 
     public void cleanup() {
         cleanupExistingClassroom();
+    }
+
+    public boolean isStructuralBlock(Block block) {
+        Material type = block.getType();
+        return type == Material.STONE_BRICKS || // Walls
+               type == Material.GLASS || // Floor and ceiling
+               type == Material.OAK_PLANKS || // Floor
+               type == Material.BLACK_CONCRETE; // Blackboard
+    }
+
+    public int getClassroomWidth() {
+        return config.getClassroomWidth() + 2; // Add 2 for walls
+    }
+
+    public int getClassroomLength() {
+        return config.getClassroomLength() + 2; // Add 2 for walls
+    }
+
+    public int getClassroomHeight() {
+        return config.getClassroomHeight() + 2; // Add 2 for floor and ceiling
     }
 }

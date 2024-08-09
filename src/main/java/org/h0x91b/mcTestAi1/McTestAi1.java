@@ -15,6 +15,9 @@ import org.h0x91b.mcTestAi1.managers.QuizManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Player;
+import org.bukkit.block.Block;
+import org.bukkit.Material;
 
 public final class McTestAi1 extends JavaPlugin {
     private Injector injector;
@@ -88,16 +91,56 @@ public final class McTestAi1 extends JavaPlugin {
             quizManager.cleanupQuiz();
         }
         if (classroomManager != null) {
-            classroomManager.cleanup();
+            cleanupClassroom();
         }
-        // Perform a final sweep to remove any remaining entities
-        for (World world : Bukkit.getWorlds()) {
-            for (Entity entity : world.getEntities()) {
-                if (entity instanceof ArmorStand && ((ArmorStand) entity).isMarker()) {
+        getLogger().info("mcTestAi1 плагин выключается. Пока, пацаны!");
+    }
+
+    private void cleanupClassroom() {
+        if (!classroomManager.isClassroomCreated()) {
+            return;
+        }
+
+        Location classroomLocation = classroomManager.getClassroomLocation();
+        World world = classroomLocation.getWorld();
+        int width = classroomManager.getClassroomWidth();
+        int length = classroomManager.getClassroomLength();
+        int height = classroomManager.getClassroomHeight();
+
+        // Define the classroom boundaries
+        int minX = classroomLocation.getBlockX();
+        int minY = classroomLocation.getBlockY();
+        int minZ = classroomLocation.getBlockZ();
+        int maxX = minX + width;
+        int maxY = minY + height;
+        int maxZ = minZ + length;
+
+        // Remove all entities within the classroom boundaries
+        for (Entity entity : world.getEntities()) {
+            Location loc = entity.getLocation();
+            if (loc.getBlockX() >= minX && loc.getBlockX() < maxX &&
+                loc.getBlockY() >= minY && loc.getBlockY() < maxY &&
+                loc.getBlockZ() >= minZ && loc.getBlockZ() < maxZ) {
+                
+                // Remove all entities except players
+                if (!(entity instanceof Player)) {
                     entity.remove();
                 }
             }
         }
-        getLogger().info("mcTestAi1 плагин выключается. Пока, пацаны!");
+
+        // Remove all non-structural blocks (like buttons, signs, etc.)
+        for (int x = minX; x < maxX; x++) {
+            for (int y = minY; y < maxY; y++) {
+                for (int z = minZ; z < maxZ; z++) {
+                    Block block = world.getBlockAt(x, y, z);
+                    if (!classroomManager.isStructuralBlock(block)) {
+                        block.setType(Material.AIR);
+                    }
+                }
+            }
+        }
+
+        classroomManager.cleanup();
     }
 }
