@@ -5,14 +5,23 @@
 ### Added
 - Improved day-night cycle with more precise countdown
 - Second-by-second countdown for the last 10 seconds of each day/night phase
+- Automatic classroom creation on plugin enable
+- Player teleportation system for joining and respawning during day/night cycles
+- Configurable day location in config.yml
 
 ### Changed
 - Modified `DayNightManager` to handle more precise time announcements
 - Updated `McTestAi1` main class to handle automatic setup on plugin enable
 - Refactored timer logic in `DayNightManager` for better performance and accuracy
+- Improved classroom cleanup process
+- Enhanced quiz system with better hologram management
 
 ### Removed
 - Manual `/createroom` command functionality
+
+### Fixed
+- Addressed issues with lingering holograms and quiz elements
+- Improved cleanup of classroom contents on plugin disable
 
 ## [0.2.0] - 2023-08-08
 

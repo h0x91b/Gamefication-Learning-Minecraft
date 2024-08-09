@@ -6,16 +6,22 @@ This file contains tasks, improvements, and features that are planned or need to
 
 - [ ] Implement inventory management system to lock player inventories during night/quiz time
 - [ ] Add sound effects for correct/incorrect quiz answers
-- [ ] Implement admin rights check for classroom creation and management commands
-- [ ] Add handling of player logins depending on the time of day (teleport to classroom if night)
-- [ ] Improve error handling when creating a classroom
+- [x] Implement admin rights check for classroom creation and management commands
+- [x] Add handling of player logins depending on the time of day (teleport to classroom if night)
+- [x] Improve error handling when creating a classroom
+- [ ] Prohibit any building or block placement within the classroom
+- [ ] Disable player-vs-player damage within the classroom
+- [ ] Implement a 3-second cooldown with button disappearance after an incorrect answer
+- [ ] Add a 1-second cooldown with button disappearance after a correct answer
+- [ ] Move all questions and answers from code to a YAML configuration file
+- [ ] Implement language selection support for Russian, Hebrew, and English
 
 ## Medium Priority
 
 - [ ] Integrate with an external API for dynamic question generation
 - [ ] Implement a leaderboard system for quiz scores
 - [ ] Add visual effects for correct/incorrect answers (particle effects, etc.)
-- [ ] Create a configuration option for customizing day/night durations
+- [x] Create a configuration option for customizing day/night durations
 - [ ] Implement a system for saving and loading classroom locations across server restarts
 
 ## Low Priority
@@ -29,7 +35,7 @@ This file contains tasks, improvements, and features that are planned or need to
 ## Bug Fixes
 
 - [ ] Address potential race conditions in the day/night cycle transitions
-- [ ] Ensure proper cleanup of holograms and buttons when recreating the classroom
+- [x] Ensure proper cleanup of holograms and buttons when recreating the classroom
 
 ## Optimization
 

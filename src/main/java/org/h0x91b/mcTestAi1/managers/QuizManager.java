@@ -80,7 +80,7 @@ public class QuizManager {
             return;
         }
 
-        Location hologramLocation = classroomLocation.clone().add(0, 2, 1);
+        Location hologramLocation = classroomLocation.clone().add(0, 1, -4);
 
         createHologramLine(world, hologramLocation, ChatColor.GOLD + "Question:");
         createHologramLine(world, hologramLocation.clone().add(0, -0.25, 0), ChatColor.WHITE + currentQuestion.getQuestion());
