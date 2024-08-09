@@ -3,6 +3,23 @@
 ## [Unreleased]
 
 ### Added
+- Automatic classroom creation on plugin startup
+- Immediate start of day-night cycle after plugin initialization
+- Logging for automatic classroom creation and day-night cycle start
+
+### Changed
+- Removed manual `/createroom` command functionality
+- Modified `DayNightManager` to start cycle immediately after classroom creation
+- Updated `McTestAi1` main class to handle automatic setup on plugin enable
+
+### Removed
+- `/createroom` command and its associated logic
+
+### Improved
+- Plugin initialization process for a more streamlined startup
+- Error handling and logging for classroom creation and day-night cycle start
+
+### Added
 - Main plugin class `McTestAi1` with Guice dependency injection
 - Refactored project structure with separate managers and config
 - `/createroom` command for creating a classroom

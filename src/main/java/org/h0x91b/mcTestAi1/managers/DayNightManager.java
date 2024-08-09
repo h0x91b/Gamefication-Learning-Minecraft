@@ -2,10 +2,12 @@ package org.h0x91b.mcTestAi1.managers;
 
 import com.google.inject.Inject;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 import org.h0x91b.mcTestAi1.config.Config;
 
 import java.util.HashMap;
@@ -23,6 +25,10 @@ public class DayNightManager {
     private final int nightDuration = 60; // длительность ночи в секундах
     private Map<UUID, Integer> playerScores = new HashMap<>();
     private Map<UUID, Location> playerLocations = new HashMap<>();
+
+    private int remainingTime;
+    private BukkitTask timerTask;
+    private BukkitTask countdownTask;
 
     @Inject
     public DayNightManager(JavaPlugin plugin, Config config, QuizManager quizManager, ClassroomManager classroomManager) {
@@ -43,15 +49,6 @@ public class DayNightManager {
         }
 
         plugin.getLogger().info("Запускаем цикл дня и ночи, епта!");
-        Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            if (isNight) {
-                startDay(world);
-            } else {
-                startNight(world);
-            }
-        }, 0L, 20L * (isNight ? nightDuration : dayDuration));
-
-        // Start with night immediately
         startNight(world);
     }
 
@@ -67,7 +64,8 @@ public class DayNightManager {
         dayDuration = 30 + (totalScore * 30); // 30 секунд + 30 секунд за каждый правильный ответ
         playerScores.clear(); // сбрасываем счёт
 
-        plugin.getLogger().info("Длительность дня: " + dayDuration + " секунд");
+        remainingTime = dayDuration;
+        startTimer();
     }
 
     private void startNight(World world) {
@@ -76,7 +74,70 @@ public class DayNightManager {
         Bukkit.broadcastMessage("Наступила ночь, народ! Погнали на уроки!");
         teleportPlayersToClassroom();
 
+        remainingTime = nightDuration;
+        startTimer();
+
         quizManager.startQuiz();
+    }
+
+    private void startTimer() {
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
+        
+        timerTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (remainingTime > 10) {
+                if (remainingTime % 10 == 0) {
+                    broadcastRemainingTime(remainingTime);
+                }
+                remainingTime -= 10;
+            } else {
+                timerTask.cancel();
+                startFinalCountdown();
+            }
+        }, 0L, 200L); // 200 ticks = 10 seconds
+    }
+
+    private void startFinalCountdown() {
+        countdownTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (remainingTime > 0) {
+                broadcastRemainingTime(remainingTime);
+                remainingTime--;
+            } else {
+                countdownTask.cancel();
+                broadcastRemainingTime(0);
+                
+                // Запускаем смену дня/ночи в следующем тике
+                Bukkit.getScheduler().runTask(plugin, () -> {
+                    World world = Bukkit.getWorlds().get(0);
+                    if (isNight) {
+                        startDay(world);
+                    } else {
+                        startNight(world);
+                    }
+                });
+            }
+        }, 0L, 20L); // 20 ticks = 1 second
+    }
+
+    private void broadcastRemainingTime(int time) {
+        if (time > 0) {
+            String message = ChatColor.YELLOW + "Осталось " + time + " " + 
+                             (time == 1 ? "секунда" : (time < 5 ? "секунды" : "секунд")) + 
+                             " до " + (isNight ? "дня" : "ночи") + "!";
+            Bukkit.broadcastMessage(message);
+        } else {
+            Bukkit.broadcastMessage(ChatColor.GOLD + "Внимание! Сейчас начнется " + (isNight ? "день" : "ночь") + "!");
+        }
+    }
+
+    public void stopTimer() {
+        if (timerTask != null) {
+            timerTask.cancel();
+        }
+        if (countdownTask != null) {
+            countdownTask.cancel();
+        }
     }
 
     private void teleportPlayersToClassroom() {

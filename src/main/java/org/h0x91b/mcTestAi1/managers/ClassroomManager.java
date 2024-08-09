@@ -44,7 +44,6 @@ public class ClassroomManager {
         addBlackboard(world, classroomLocation, totalWidth, totalHeight);
     }
 
-    // Keep the existing createRoom method for player-initiated room creation
     public void createRoom(Player player) {
         Location playerLoc = player.getLocation();
         Location roomLoc = new Location(player.getWorld(), playerLoc.getX(), config.getClassroomY(), playerLoc.getZ());
@@ -147,7 +146,16 @@ public class ClassroomManager {
         if (classroomLocation == null) {
             throw new IllegalStateException("Класс ещё не создан, братан!");
         }
-        return classroomLocation.clone().add(1, 1, 1); // Возвращаем локацию внутри класса
+        int width = config.getClassroomWidth();
+        int length = config.getClassroomLength();
+        int height = config.getClassroomHeight();
+        
+        // Вычисляем центр комнаты
+        double centerX = classroomLocation.getX() + (width / 2.0) + 1;
+        double centerY = classroomLocation.getY() + 1;
+        double centerZ = classroomLocation.getZ() + (length / 2.0) + 1;
+        
+        return new Location(classroomLocation.getWorld(), centerX, centerY, centerZ);
     }
 
     public boolean isClassroomBlock(Location location) {
