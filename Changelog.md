@@ -1,28 +1,24 @@
-# CHANGELOG
+# Changelog
 
 ## [Unreleased]
 
 ### Added
-- Automatic classroom creation on plugin startup
-- Immediate start of day-night cycle after plugin initialization
-- Logging for automatic classroom creation and day-night cycle start
+- Improved day-night cycle with more precise countdown
+- Second-by-second countdown for the last 10 seconds of each day/night phase
 
 ### Changed
-- Removed manual `/createroom` command functionality
-- Modified `DayNightManager` to start cycle immediately after classroom creation
+- Modified `DayNightManager` to handle more precise time announcements
 - Updated `McTestAi1` main class to handle automatic setup on plugin enable
+- Refactored timer logic in `DayNightManager` for better performance and accuracy
 
 ### Removed
-- `/createroom` command and its associated logic
+- Manual `/createroom` command functionality
 
-### Improved
-- Plugin initialization process for a more streamlined startup
-- Error handling and logging for classroom creation and day-night cycle start
+## [0.2.0] - 2023-08-08
 
 ### Added
 - Main plugin class `McTestAi1` with Guice dependency injection
 - Refactored project structure with separate managers and config
-- `/createroom` command for creating a classroom
 - Classroom generation with specified dimensions (configurable via `config.yml`)
 - Protection of classroom blocks from destruction
 - Floor creation with alternating glass and oak plank blocks
@@ -43,25 +39,10 @@
 ### Changed
 - Upgraded to Java 21
 - Updated Guice to version 7.0.0 for Java 21 compatibility
+- Modified `DayNightManager` to handle more precise time announcements
+- Updated `McTestAi1` main class to handle automatic setup on plugin enable
+- Refactored timer logic in `DayNightManager` for better performance and accuracy
+- Added time remaining announcements with proper singular/plural forms for seconds
 
 ### Fixed
 - Classroom protection now working correctly
-
-### Work in Progress
-- Full integration of inventory management system
-- Proper cleanup of holograms and buttons when recreating the room
-
-### TODO
-- Implement sound effects for correct/incorrect answers
-- Add admin rights check for the `/createroom` command
-- Implement error handling when creating a room
-- Add handling of player logins depending on the time of day
-- Integrate with an external API for dynamic question generation
-- Implement a leaderboard system
-- Add visual effects for correct/incorrect answers
-
-### Known Issues
-- No admin rights check for the `/createroom` command
-- No error handling when creating a room
-- Holograms and buttons are not properly removed when recreating the room
-- Inventory management during night/day cycle not fully implemented
