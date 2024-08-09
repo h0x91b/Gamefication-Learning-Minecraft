@@ -140,20 +140,7 @@ public class QuizManager {
             return;
         }
 
-        int index = -1;
-        for (int i = 0; i < quizButtonLocations.size(); i++) {
-            Location loc = quizButtonLocations.get(i);
-            if (buttonLoc.getBlockX() == loc.getBlockX() &&
-                buttonLoc.getBlockY() == loc.getBlockY() &&
-                buttonLoc.getBlockZ() == loc.getBlockZ()) {
-                index = i;
-                break;
-            }
-        }
-
-        logger.info("Player " + player.getName() + " clicked button at location: " + buttonLoc);
-        logger.info("Button index: " + index);
-        logger.info("Quiz button locations: " + quizButtonLocations);
+        int index = getButtonIndex(buttonLoc);
 
         if (index == -1 || index >= currentQuestion.getAnswers().size()) {
             player.sendMessage(ChatColor.RED + "Invalid answer!");
@@ -163,23 +150,47 @@ public class QuizManager {
         boolean isCorrect = currentQuestion.isCorrectAnswer(index);
 
         if (isCorrect) {
-            player.sendMessage(ChatColor.GREEN + "Correct answer!");
-            dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
+            int additionalTime = dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
+            player.sendMessage(ChatColor.GREEN + "Правильно! Твой следующий день будет на " + additionalTime + " " + getSecondsWord(additionalTime) + " длиннее!");
         } else {
-            player.sendMessage(ChatColor.RED + "Incorrect answer. The correct answer was: " +
-                    getCorrectAnswerLetter(currentQuestion));
+            String correctAnswer = getCorrectAnswerWithLetter(currentQuestion);
+            player.sendMessage(ChatColor.RED + "Неправильно. Правильный ответ был: " + correctAnswer);
         }
 
         startQuiz();
     }
 
-    private String getCorrectAnswerLetter(Question question) {
+    private String getCorrectAnswerWithLetter(Question question) {
         for (int i = 0; i < question.getAnswers().size(); i++) {
             if (question.isCorrectAnswer(i)) {
-                return String.valueOf((char)('A' + i));
+                char letter = (char)('A' + i);
+                return letter + " - " + question.getAnswers().get(i);
             }
         }
-        return "?";
+        return "Ответ не найден";
+    }
+
+    private String getSecondsWord(int seconds) {
+        if (seconds % 10 == 1 && seconds % 100 != 11) {
+            return "секунду";
+        } else if ((seconds % 10 == 2 || seconds % 10 == 3 || seconds % 10 == 4) &&
+                (seconds % 100 < 10 || seconds % 100 >= 20)) {
+            return "секунды";
+        } else {
+            return "секунд";
+        }
+    }
+
+    private int getButtonIndex(Location buttonLoc) {
+        for (int i = 0; i < quizButtonLocations.size(); i++) {
+            Location loc = quizButtonLocations.get(i);
+            if (buttonLoc.getBlockX() == loc.getBlockX() &&
+                buttonLoc.getBlockY() == loc.getBlockY() &&
+                buttonLoc.getBlockZ() == loc.getBlockZ()) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public void removeAllHolograms() {

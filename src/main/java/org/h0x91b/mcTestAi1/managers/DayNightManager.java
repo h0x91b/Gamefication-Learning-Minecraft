@@ -186,8 +186,11 @@ public class DayNightManager {
         playerLocations.clear(); // Clear saved locations as they're no longer needed
     }
 
-    public void addScore(UUID playerId, int score) {
-        playerScores.put(playerId, playerScores.getOrDefault(playerId, 0) + score);
+    public int addScore(UUID playerId, int score) {
+        int currentScore = playerScores.getOrDefault(playerId, 0);
+        int newScore = currentScore + score;
+        playerScores.put(playerId, newScore);
+        return calculateAdditionalTime(score);
     }
 
     public boolean isNight() {
@@ -208,5 +211,9 @@ public class DayNightManager {
 
         playerLocations.put(player.getUniqueId(), player.getLocation());
         player.teleport(classroomLocation);
+    }
+
+    public int calculateAdditionalTime(int score) {
+        return score * 30; // 30 секунд за каждый правильный ответ
     }
 }

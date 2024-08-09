@@ -15,6 +15,7 @@ This file contains tasks, improvements, and features that are planned or need to
 - [ ] Add a 1-second cooldown with button disappearance after a correct answer
 - [ ] Move all questions and answers from code to a YAML configuration file
 - [ ] Implement language selection support for Russian, Hebrew, and English
+- [x] Show earned time after each correct answer
 
 ## Medium Priority
 
