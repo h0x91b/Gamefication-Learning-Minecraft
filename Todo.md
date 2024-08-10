@@ -4,7 +4,7 @@ This file contains tasks, improvements, and features that are planned or need to
 
 ## High Priority
 
-- [ ] Prevent from renaming signs in the classroom
+- [x] Prevent from renaming signs in the classroom
 - [x] After pressing incorrect button all buttons became not active anymore
 - [ ] Implement inventory management system to lock player inventories during night/quiz time
 - [ ] Add sound effects for correct/incorrect quiz answers

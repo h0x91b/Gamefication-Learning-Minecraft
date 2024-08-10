@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Implemented prevention of sign renaming within the classroom
 - Implemented question rotation system to prevent repetition
 - Added support for multiple languages (Russian, Hebrew, and English) in questions.yml
 - Implemented a system to slightly favor questions that haven't been asked in a long time
