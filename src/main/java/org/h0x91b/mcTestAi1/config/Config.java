@@ -10,13 +10,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Config {
     private final JavaPlugin plugin;
     private YamlConfiguration questionsConfig;
+    private final Logger logger;
 
     public Config(JavaPlugin plugin) {
         this.plugin = plugin;
+        this.logger = plugin.getLogger();
         plugin.saveDefaultConfig();
         loadQuestionsConfig();
     }
@@ -56,25 +59,42 @@ public class Config {
             plugin.saveResource("questions.yml", false);
         }
         questionsConfig = YamlConfiguration.loadConfiguration(questionsFile);
+        logger.info("Questions configuration file loaded successfully.");
     }
 
     public List<Question> getQuestions(String language) {
         List<Question> questions = new ArrayList<>();
         List<?> questionsList = questionsConfig.getList(language);
         if (questionsList == null) {
-            plugin.getLogger().warning("No questions found for language: " + language);
+            logger.warning("No questions found for language: " + language);
             return questions;
         }
 
+        logger.info("Found " + questionsList.size() + " question entries for language: " + language);
+
         for (Object obj : questionsList) {
             if (obj instanceof Map) {
-                Map<?, ?> questionMap = (Map<?, ?>) obj;
-                String questionText = (String) questionMap.get("question");
-                List<String> answers = (List<String>) questionMap.get("answers");
-                int correctAnswerIndex = (int) questionMap.get("correctAnswerIndex");
-                questions.add(new Question(questionText, answers, correctAnswerIndex));
+                try {
+                    Map<?, ?> questionMap = (Map<?, ?>) obj;
+                    String questionText = (String) questionMap.get("question");
+                    List<String> answers = (List<String>) questionMap.get("answers");
+                    int correctAnswerIndex = (int) questionMap.get("correctAnswerIndex");
+
+                    if (questionText == null || answers == null || answers.size() != 4) {
+                        logger.warning("Invalid question format: " + questionMap);
+                        continue;
+                    }
+
+                    questions.add(new Question(questionText, answers, correctAnswerIndex));
+                } catch (ClassCastException | NullPointerException e) {
+                    logger.warning("Error parsing question: " + e.getMessage());
+                }
+            } else {
+                logger.warning("Invalid question entry: " + obj);
             }
         }
+
+        logger.info("Successfully loaded " + questions.size() + " valid questions for language: " + language);
         return questions;
     }
 }

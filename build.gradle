@@ -1,3 +1,5 @@
+// File: /Users/arsenyp/IdeaProjects/mc-test-ai1/build.gradle
+
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -20,7 +22,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    implementation 'com.google.inject:guice:7.0.0' // Обновил до последней версии, которая поддерживает Java 21
+    implementation 'com.google.inject:guice:7.0.0'
     implementation files('server/Paper 1.21 109.jar')
 }
 
@@ -43,19 +45,43 @@ processResources {
     filesMatching('paper-plugin.yml') {
         expand props
     }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 shadowJar {
     archiveBaseName.set(project.name)
     archiveClassifier.set('')
     archiveVersion.set('')
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
 build.dependsOn shadowJar
 
-tasks.register('copyJarToServer', Copy) {
-    from shadowJar
-    into "/Users/arsenyp/Library/CloudStorage/GoogleDrive-h0x91b@gmail.com/My Drive/mc-server/plugins/"
+def serverPluginsDir = "/Users/arsenyp/Library/CloudStorage/GoogleDrive-h0x91b@gmail.com/My Drive/mc-server/plugins/"
+
+task copyQuestionsYml(type: Copy) {
+    from 'src/main/resources/questions.yml'
+    into serverPluginsDir
+    doLast {
+        logger.lifecycle("Copied questions.yml to server plugins directory")
+    }
 }
 
-tasks.shadowJar.finalizedBy(tasks.copyJarToServer)
+task copyJarToServer(type: Copy) {
+    from shadowJar
+    into serverPluginsDir
+    doLast {
+        logger.lifecycle("Copied plugin JAR to server plugins directory")
+    }
+}
+
+copyJarToServer.dependsOn copyQuestionsYml
+tasks.shadowJar.finalizedBy copyJarToServer
+
+gradle.buildFinished {
+    if (tasks.copyQuestionsYml.state.executed) {
+        logger.lifecycle("questions.yml has been updated in the server plugins directory")
+    } else {
+        logger.warn("copyQuestionsYml task was not executed. Check if it's properly integrated into the build process.")
+    }
+}

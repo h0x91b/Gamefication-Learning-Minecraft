@@ -337,7 +337,1287 @@ russian:
       - "Пингвин"
       - "Кенгуру"
     correctAnswerIndex: 2
+  - question: "В каком году началась Вторая мировая война?"
+    answers:
+      - "1937"
+      - "1939"
+      - "1941"
+      - "1945"
+    correctAnswerIndex: 1
+  - question: "Кто был первым президентом США?"
+    answers:
+      - "Томас Джефферсон"
+      - "Авраам Линкольн"
+      - "Джордж Вашингтон"
+      - "Бенджамин Франклин"
+    correctAnswerIndex: 2
+  - question: "В каком году произошла Октябрьская революция в России?"
+    answers:
+      - "1905"
+      - "1914"
+      - "1917"
+      - "1922"
+    correctAnswerIndex: 2
+  - question: "Кто был фараоном, построившим Великую пирамиду в Гизе?"
+    answers:
+      - "Тутанхамон"
+      - "Рамзес II"
+      - "Хеопс"
+      - "Клеопатра"
+    correctAnswerIndex: 2
+  - question: "В каком году был открыт Америку Христофором Колумбом?"
+    answers:
+      - "1492"
+      - "1500"
+      - "1510"
+      - "1520"
+    correctAnswerIndex: 0
+  - question: "Кто был лидером СССР во время Карибского кризиса?"
+    answers:
+      - "Иосиф Сталин"
+      - "Никита Хрущев"
+      - "Леонид Брежнев"
+      - "Михаил Горбачев"
+    correctAnswerIndex: 1
+  - question: "В каком году пал Берлинская стена?"
+    answers:
+      - "1985"
+      - "1987"
+      - "1989"
+      - "1991"
+    correctAnswerIndex: 2
+  - question: "Кто был первым человеком, совершившим полет в космос?"
+    answers:
+      - "Нил Армстронг"
+      - "Юрий Гагарин"
+      - "Алан Шепард"
+      - "Валентина Терешкова"
+    correctAnswerIndex: 1
+  - question: "В каком году закончилась Первая мировая война?"
+    answers:
+      - "1916"
+      - "1917"
+      - "1918"
+      - "1919"
+    correctAnswerIndex: 2
+  - question: "Кто был основателем Монгольской империи?"
+    answers:
+      - "Чингисхан"
+      - "Кубла хан"
+      - "Тамерлан"
+      - "Атилла"
+    correctAnswerIndex: 0
+  - question: "В каком году произошла Французская революция?"
+    answers:
+      - "1769"
+      - "1779"
+      - "1789"
+      - "1799"
+    correctAnswerIndex: 2
+  - question: "Кто был первым императором Римской империи?"
+    answers:
+      - "Юлий Цезарь"
+      - "Август"
+      - "Нерон"
+      - "Константин"
+    correctAnswerIndex: 1
+  - question: "В каком году была подписана Декларация независимости США?"
+    answers:
+      - "1772"
+      - "1774"
+      - "1776"
+      - "1778"
+    correctAnswerIndex: 2
+  - question: "Кто был лидером движения за гражданские права в США в 1960-х годах?"
+    answers:
+      - "Малкольм Икс"
+      - "Мартин Лютер Кинг"
+      - "Джон Ф. Кеннеди"
+      - "Роза Паркс"
+    correctAnswerIndex: 1
+  - question: "В каком году произошла Великая Октябрьская социалистическая революция в России?"
+    answers:
+      - "1905"
+      - "1914"
+      - "1917"
+      - "1922"
+    correctAnswerIndex: 2
+  - question: "Чему равен корень из 144?"
+    answers:
+      - "10"
+      - "12"
+      - "14"
+      - "16"
+    correctAnswerIndex: 1
+  - question: "Сколько градусов в сумме углов треугольника?"
+    answers:
+      - "90"
+      - "180"
+      - "270"
+      - "360"
+    correctAnswerIndex: 1
+  - question: "Чему равно число π (пи) с точностью до сотых?"
+    answers:
+      - "3,14"
+      - "3,16"
+      - "3,18"
+      - "3,20"
+    correctAnswerIndex: 0
+  - question: "Какое число является наименьшим простым числом?"
+    answers:
+      - "0"
+      - "1"
+      - "2"
+      - "3"
+    correctAnswerIndex: 2
+  - question: "Сколько сторон у пятиугольника?"
+    answers:
+      - "4"
+      - "5"
+      - "6"
+      - "7"
+    correctAnswerIndex: 1
+  - question: "Чему равно 2 в 5-й степени?"
+    answers:
+      - "10"
+      - "16"
+      - "25"
+      - "32"
+    correctAnswerIndex: 3
+  - question: "Какое число следует в последовательности: 2, 4, 8, 16, ...?"
+    answers:
+      - "24"
+      - "28"
+      - "30"
+      - "32"
+    correctAnswerIndex: 3
+  - question: "Сколько нулей в числе миллион?"
+    answers:
+      - "5"
+      - "6"
+      - "7"
+      - "8"
+    correctAnswerIndex: 1
+  - question: "Чему равна площадь квадрата со стороной 5 см?"
+    answers:
+      - "20 см²"
+      - "25 см²"
+      - "30 см²"
+      - "35 см²"
+    correctAnswerIndex: 1
+  - question: "Какое число является результатом выражения 3 × (4 + 2)?"
+    answers:
+      - "14"
+      - "18"
+      - "20"
+      - "24"
+    correctAnswerIndex: 1
+  - question: "Сколько минут в двух часах?"
+    answers:
+      - "60"
+      - "90"
+      - "120"
+      - "150"
+    correctAnswerIndex: 2
+  - question: "Чему равен периметр квадрата со стороной 7 см?"
+    answers:
+      - "21 см"
+      - "24 см"
+      - "28 см"
+      - "35 см"
+    correctAnswerIndex: 2
+  - question: "Какое число является наибольшим общим делителем чисел 24 и 36?"
+    answers:
+      - "6"
+      - "8"
+      - "12"
+      - "18"
+    correctAnswerIndex: 2
+  - question: "Сколько граней у куба?"
+    answers:
+      - "4"
+      - "6"
+      - "8"
+      - "12"
+    correctAnswerIndex: 1
+  - question: "Чему равно 20% от 200?"
+    answers:
+      - "20"
+      - "30"
+      - "40"
+      - "50"
+    correctAnswerIndex: 2
+  - question: "Какая самая длинная река в мире?"
+    answers:
+      - "Амазонка"
+      - "Нил"
+      - "Янцзы"
+      - "Миссисипи"
+    correctAnswerIndex: 1
+  - question: "Какая страна является самой большой по площади?"
+    answers:
+      - "Китай"
+      - "США"
+      - "Канада"
+      - "Россия"
+    correctAnswerIndex: 3
+  - question: "На каком континенте находится пустыня Сахара?"
+    answers:
+      - "Африка"
+      - "Азия"
+      - "Австралия"
+      - "Южная Америка"
+    correctAnswerIndex: 0
+  - question: "Какой океан самый большой?"
+    answers:
+      - "Атлантический"
+      - "Индийский"
+      - "Северный Ледовитый"
+      - "Тихий"
+    correctAnswerIndex: 3
+  - question: "Какая страна имеет форму сапога?"
+    answers:
+      - "Испания"
+      - "Италия"
+      - "Греция"
+      - "Португалия"
+    correctAnswerIndex: 1
+  - question: "Какая гора является самой высокой в мире?"
+    answers:
+      - "Килиманджаро"
+      - "Монблан"
+      - "Эверест"
+      - "Эльбрус"
+    correctAnswerIndex: 2
+  - question: "В какой стране находится Большой Барьерный риф?"
+    answers:
+      - "Индонезия"
+      - "Филиппины"
+      - "Австралия"
+      - "Новая Зеландия"
+    correctAnswerIndex: 2
+  - question: "Какой город является столицей Японии?"
+    answers:
+      - "Осака"
+      - "Киото"
+      - "Токио"
+      - "Йокогама"
+    correctAnswerIndex: 2
+  - question: "Какое море является самым соленым в мире?"
+    answers:
+      - "Красное море"
+      - "Мертвое море"
+      - "Средиземное море"
+      - "Черное море"
+    correctAnswerIndex: 1
+  - question: "На каком континенте расположена страна Бразилия?"
+    answers:
+      - "Северная Америка"
+      - "Южная Америка"
+      - "Африка"
+      - "Европа"
+    correctAnswerIndex: 1
+  - question: "Какая страна имеет наибольшее население в мире?"
+    answers:
+      - "Индия"
+      - "США"
+      - "Китай"
+      - "Индонезия"
+    correctAnswerIndex: 2
+  - question: "Какой пролив отделяет Европу от Африки?"
+    answers:
+      - "Босфор"
+      - "Гибралтарский"
+      - "Ла-Манш"
+      - "Берингов"
+    correctAnswerIndex: 1
+  - question: "В какой стране находится город Марракеш?"
+    answers:
+      - "Алжир"
+      - "Тунис"
+      - "Египет"
+      - "Марокко"
+    correctAnswerIndex: 3
+  - question: "Какое озеро является самым глубоким в мире?"
+    answers:
+      - "Байкал"
+      - "Виктория"
+      - "Танганьика"
+      - "Верхнее"
+    correctAnswerIndex: 0
+  - question: "Какая страна имеет больше всего часовых поясов?"
+    answers:
+      - "Россия"
+      - "США"
+      - "Китай"
+      - "Франция"
+    correctAnswerIndex: 3
 
+  - question: "Какая единица измерения силы тока?"
+    answers:
+      - "Вольт"
+      - "Ампер"
+      - "Ватт"
+      - "Ом"
+    correctAnswerIndex: 1
+  - question: "Что измеряет шкала Цельсия?"
+    answers:
+      - "Скорость"
+      - "Температуру"
+      - "Давление"
+      - "Влажность"
+    correctAnswerIndex: 1
+  - question: "Какая формула описывает второй закон Ньютона?"
+    answers:
+      - "E = mc²"
+      - "F = ma"
+      - "P = mv"
+      - "V = IR"
+    correctAnswerIndex: 1
+  - question: "Какое явление описывает закон Архимеда?"
+    answers:
+      - "Гравитацию"
+      - "Магнетизм"
+      - "Плавучесть"
+      - "Электричество"
+    correctAnswerIndex: 2
+  - question: "Какая частица имеет положительный заряд?"
+    answers:
+      - "Электрон"
+      - "Протон"
+      - "Нейтрон"
+      - "Фотон"
+    correctAnswerIndex: 1
+  - question: "Какое состояние материи имеет определенный объем, но не имеет определенной формы?"
+    answers:
+      - "Твердое"
+      - "Жидкое"
+      - "Газообразное"
+      - "Плазма"
+    correctAnswerIndex: 1
+  - question: "Что измеряется в герцах (Гц)?"
+    answers:
+      - "Громкость"
+      - "Частота"
+      - "Длина волны"
+      - "Скорость"
+    correctAnswerIndex: 1
+  - question: "Какой цвет имеет самую короткую длину волны в видимом спектре?"
+    answers:
+      - "Красный"
+      - "Зеленый"
+      - "Синий"
+      - "Фиолетовый"
+    correctAnswerIndex: 3
+  - question: "Какое явление объясняет, почему небо голубое?"
+    answers:
+      - "Отражение"
+      - "Рассеяние"
+      - "Преломление"
+      - "Дифракция"
+    correctAnswerIndex: 1
+  - question: "Какой закон гласит, что энергия не может быть создана или уничтожена?"
+    answers:
+      - "Закон Ома"
+      - "Закон Гука"
+      - "Закон сохранения энергии"
+      - "Закон Фарадея"
+    correctAnswerIndex: 2
+  - question: "Что такое абсолютный ноль по шкале Цельсия?"
+    answers:
+      - "-273.15°C"
+      - "-100°C"
+      - "0°C"
+      - "100°C"
+    correctAnswerIndex: 0
+  - question: "Какая сила удерживает планеты на орбите вокруг Солнца?"
+    answers:
+      - "Магнитная"
+      - "Электрическая"
+      - "Гравитационная"
+      - "Ядерная"
+    correctAnswerIndex: 2
+  - question: "Какой прибор используется для измерения атмосферного давления?"
+    answers:
+      - "Термометр"
+      - "Барометр"
+      - "Гигрометр"
+      - "Анемометр"
+    correctAnswerIndex: 1
+  - question: "Какое явление объясняет образование радуги?"
+    answers:
+      - "Отражение"
+      - "Рассеяние"
+      - "Преломление"
+      - "Дифракция"
+    correctAnswerIndex: 2
+  - question: "Что измеряется в ньютонах?"
+    answers:
+      - "Масса"
+      - "Сила"
+      - "Энергия"
+      - "Скорость"
+    correctAnswerIndex: 1
+
+  - question: "Сколько сторон у треугольника?"
+    answers:
+      - "2"
+      - "3"
+      - "4"
+      - "5"
+    correctAnswerIndex: 1
+  - question: "Чему равна сумма углов треугольника?"
+    answers:
+      - "90°"
+      - "180°"
+      - "270°"
+      - "360°"
+    correctAnswerIndex: 1
+  - question: "Какая фигура имеет все стороны равной длины и все углы равны 90°?"
+    answers:
+      - "Прямоугольник"
+      - "Ромб"
+      - "Квадрат"
+      - "Трапеция"
+    correctAnswerIndex: 2
+  - question: "Как называется отрезок, соединяющий две точки окружности и проходящий через центр?"
+    answers:
+      - "Радиус"
+      - "Диаметр"
+      - "Хорда"
+      - "Секущая"
+    correctAnswerIndex: 1
+  - question: "Сколько граней у куба?"
+    answers:
+      - "4"
+      - "6"
+      - "8"
+      - "12"
+    correctAnswerIndex: 1
+  - question: "Какая фигура образуется при вращении прямоугольника вокруг одной из его сторон?"
+    answers:
+      - "Шар"
+      - "Конус"
+      - "Цилиндр"
+      - "Пирамида"
+    correctAnswerIndex: 2
+  - question: "Чему равна площадь квадрата со стороной 5 см?"
+    answers:
+      - "10 см²"
+      - "15 см²"
+      - "20 см²"
+      - "25 см²"
+    correctAnswerIndex: 3
+  - question: "Как называется треугольник, у которого все стороны разной длины?"
+    answers:
+      - "Равносторонний"
+      - "Равнобедренный"
+      - "Прямоугольный"
+      - "Разносторонний"
+    correctAnswerIndex: 3
+  - question: "Сколько диагоналей у пятиугольника?"
+    answers:
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+    correctAnswerIndex: 2
+  - question: "Какая формула используется для вычисления площади прямоугольника?"
+    answers:
+      - "a + b"
+      - "a × b"
+      - "a² + b²"
+      - "(a + b) / 2"
+    correctAnswerIndex: 1
+  - question: "Как называется прямая, касающаяся окружности только в одной точке?"
+    answers:
+      - "Секущая"
+      - "Хорда"
+      - "Касательная"
+      - "Радиус"
+    correctAnswerIndex: 2
+  - question: "Чему равен объем куба со стороной 3 см?"
+    answers:
+      - "9 см³"
+      - "18 см³"
+      - "21 см³"
+      - "27 см³"
+    correctAnswerIndex: 3
+  - question: "Какая фигура имеет только одну грань?"
+    answers:
+      - "Конус"
+      - "Цилиндр"
+      - "Сфера"
+      - "Пирамида"
+    correctAnswerIndex: 2
+  - question: "Как называется треугольник с двумя равными сторонами?"
+    answers:
+      - "Равносторонний"
+      - "Равнобедренный"
+      - "Прямоугольный"
+      - "Тупоугольный"
+    correctAnswerIndex: 1
+  - question: "Сколько осей симметрии у равностороннего треугольника?"
+    answers:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+    correctAnswerIndex: 2
+
+  - question: "Какое животное может спать до трех лет подряд?"
+    answers:
+      - "Медведь"
+      - "Коала"
+      - "Улитка"
+      - "Ленивец"
+    correctAnswerIndex: 2
+  - question: "Сколько сердец у осьминога?"
+    answers:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+    correctAnswerIndex: 2
+  - question: "Какая планета вращается по своей орбите 'лёжа на боку'?"
+    answers:
+      - "Марс"
+      - "Венера"
+      - "Уран"
+      - "Нептун"
+    correctAnswerIndex: 2
+  - question: "Какое животное никогда не спит?"
+    answers:
+      - "Жираф"
+      - "Дельфин"
+      - "Акула"
+      - "Колибри"
+    correctAnswerIndex: 1
+  - question: "Сколько костей в теле взрослого человека?"
+    answers:
+      - "106"
+      - "206"
+      - "306"
+      - "406"
+    correctAnswerIndex: 1
+  - question: "Какая страна имеет форму сапога?"
+    answers:
+      - "Франция"
+      - "Италия"
+      - "Испания"
+      - "Греция"
+    correctAnswerIndex: 1
+  - question: "Какое животное может поворачивать голову на 270 градусов?"
+    answers:
+      - "Хамелеон"
+      - "Сова"
+      - "Жираф"
+      - "Летучая мышь"
+    correctAnswerIndex: 1
+  - question: "Сколько вкусовых рецепторов имеет средний человеческий язык?"
+    answers:
+      - "100"
+      - "1,000"
+      - "10,000"
+      - "100,000"
+    correctAnswerIndex: 2
+  - question: "Какое растение может жить до 5000 лет?"
+    answers:
+      - "Дуб"
+      - "Секвойя"
+      - "Баобаб"
+      - "Сосна остистая"
+    correctAnswerIndex: 3
+  - question: "Какая страна производит больше всего кофе в мире?"
+    answers:
+      - "Колумбия"
+      - "Вьетнам"
+      - "Эфиопия"
+      - "Бразилия"
+    correctAnswerIndex: 3
+  - question: "Какое животное имеет отпечатки пальцев, похожие на человеческие?"
+    answers:
+      - "Шимпанзе"
+      - "Горилла"
+      - "Коала"
+      - "Лемур"
+    correctAnswerIndex: 2
+  - question: "Сколько длится один оборот Земли вокруг Солнца?"
+    answers:
+      - "365 дней"
+      - "365.25 дней"
+      - "366 дней"
+      - "364 дня"
+    correctAnswerIndex: 1
+  - question: "Какое животное может выживать без воды всю жизнь?"
+    answers:
+      - "Верблюд"
+      - "Крыса-кенгуру"
+      - "Коала"
+      - "Тушканчик"
+    correctAnswerIndex: 1
+  - question: "Какой элемент составляет около 78% атмосферы Земли?"
+    answers:
+      - "Кислород"
+      - "Углекислый газ"
+      - "Азот"
+      - "Водород"
+    correctAnswerIndex: 2
+  - question: "Какое животное имеет самый большой мозг относительно размера тела?"
+    answers:
+      - "Человек"
+      - "Дельфин"
+      - "Муравей"
+      - "Колибри"
+    correctAnswerIndex: 2
+  - question: "Какая планета в Солнечной системе вращается быстрее всех?"
+    answers:
+      - "Меркурий"
+      - "Венера"
+      - "Марс"
+      - "Юпитер"
+    correctAnswerIndex: 3
+  - question: "Сколько вкусов может различить человеческий язык?"
+    answers:
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+    correctAnswerIndex: 2
+  - question: "Какое животное никогда не болеет раком?"
+    answers:
+      - "Слон"
+      - "Кит"
+      - "Голый землекоп"
+      - "Черепаха"
+    correctAnswerIndex: 2
+  - question: "Какая страна имеет больше всего часовых поясов?"
+    answers:
+      - "Россия"
+      - "США"
+      - "Китай"
+      - "Франция"
+    correctAnswerIndex: 3
+  - question: "Какое животное может регенерировать свой мозг?"
+    answers:
+      - "Ящерица"
+      - "Морская звезда"
+      - "Аксолотль"
+      - "Планария"
+    correctAnswerIndex: 3
+  - question: "Сколько костей в ухе человека?"
+    answers:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+    correctAnswerIndex: 2
+  - question: "Какая птица может летать задом наперед?"
+    answers:
+      - "Орел"
+      - "Колибри"
+      - "Пингвин"
+      - "Сова"
+    correctAnswerIndex: 1
+  - question: "Какое животное имеет самый длинный язык относительно размера тела?"
+    answers:
+      - "Жираф"
+      - "Хамелеон"
+      - "Муравьед"
+      - "Колибри"
+    correctAnswerIndex: 1
+  - question: "Какая страна имеет самую высокую среднюю продолжительность жизни?"
+    answers:
+      - "Япония"
+      - "Швейцария"
+      - "Норвегия"
+      - "Сингапур"
+    correctAnswerIndex: 0
+  - question: "Какое животное может видеть своими ушами?"
+    answers:
+      - "Летучая мышь"
+      - "Сова"
+      - "Дельфин"
+      - "Кит"
+    correctAnswerIndex: 0
+  - question: "Сколько зубов у взрослого человека?"
+    answers:
+      - "28"
+      - "30"
+      - "32"
+      - "34"
+    correctAnswerIndex: 2
+  - question: "Какая планета называется 'Утренней звездой'?"
+    answers:
+      - "Марс"
+      - "Венера"
+      - "Юпитер"
+      - "Сатурн"
+    correctAnswerIndex: 1
+  - question: "Какое животное может менять свой пол?"
+    answers:
+      - "Лягушка"
+      - "Рыба-клоун"
+      - "Хамелеон"
+      - "Крокодил"
+    correctAnswerIndex: 1
+  - question: "Сколько вкусовых сосочков имеет средний человеческий язык?"
+    answers:
+      - "1,000"
+      - "5,000"
+      - "10,000"
+      - "50,000"
+    correctAnswerIndex: 2
+  - question: "Какое дерево может жить до 5000 лет?"
+    answers:
+      - "Дуб"
+      - "Секвойя"
+      - "Баобаб"
+      - "Сосна остистая"
+    correctAnswerIndex: 3
+  - question: "Какая страна имеет наибольшее количество островов?"
+    answers:
+      - "Индонезия"
+      - "Филиппины"
+      - "Греция"
+      - "Швеция"
+    correctAnswerIndex: 3
+  - question: "Какое животное может прожить без еды дольше всех?"
+    answers:
+      - "Верблюд"
+      - "Крокодил"
+      - "Королевская кобра"
+      - "Тихоходка"
+    correctAnswerIndex: 2
+  - question: "Сколько процентов мозга использует человек?"
+    answers:
+      - "10%"
+      - "50%"
+      - "75%"
+      - "100%"
+    correctAnswerIndex: 3
+  - question: "Какое животное никогда не пьет воду?"
+    answers:
+      - "Коала"
+      - "Кенгуровая крыса"
+      - "Верблюд"
+      - "Ленивец"
+    correctAnswerIndex: 0
+  - question: "Какая планета имеет самый короткий день?"
+    answers:
+      - "Меркурий"
+      - "Венера"
+      - "Марс"
+      - "Юпитер"
+    correctAnswerIndex: 3
+  - question: "Какое животное имеет самое большое сердце относительно размера тела?"
+    answers:
+      - "Колибри"
+      - "Синий кит"
+      - "Мышь"
+      - "Жираф"
+    correctAnswerIndex: 0
+  - question: "Сколько костей у акулы?"
+    answers:
+      - "0"
+      - "206"
+      - "300"
+      - "1000"
+    correctAnswerIndex: 0
+  - question: "Какая страна имеет самую низкую точку на Земле?"
+    answers:
+      - "Иордания"
+      - "Нидерланды"
+      - "Израиль"
+      - "Египет"
+    correctAnswerIndex: 2
+
+
+  - question: "Кто является главным героем аниме 'Наруто'?"
+    answers:
+      - "Саске Учиха"
+      - "Наруто Узумаки"
+      - "Какаши Хатаке"
+      - "Сакура Харуно"
+    correctAnswerIndex: 1
+  - question: "Какое аниме рассказывает о мире, где люди сражаются с гигантскими человекоподобными существами?"
+    answers:
+      - "One Piece"
+      - "Attack on Titan"
+      - "My Hero Academia"
+      - "Death Note"
+    correctAnswerIndex: 1
+  - question: "Кто создал аниме 'Мой сосед Тоторо'?"
+    answers:
+      - "Макото Синкай"
+      - "Хаяо Миядзаки"
+      - "Мамору Хосода"
+      - "Исао Такахата"
+    correctAnswerIndex: 1
+  - question: "Какой жанр аниме описывает романтические отношения между персонажами?"
+    answers:
+      - "Сёнэн"
+      - "Сейнен"
+      - "Сёдзё"
+      - "Дзёсей"
+    correctAnswerIndex: 2
+  - question: "Как называется техника трансформации в аниме 'Драконий жемчуг'?"
+    answers:
+      - "Банкай"
+      - "Кайокен"
+      - "Расенган"
+      - "Супер Сайян"
+    correctAnswerIndex: 3
+  - question: "Какое аниме рассказывает о мальчике, который может видеть духов?"
+    answers:
+      - "Блич"
+      - "Наруто"
+      - "One Piece"
+      - "Синий экзорцист"
+    correctAnswerIndex: 0
+  - question: "Кто является главным героем аниме 'Тетрадь смерти'?"
+    answers:
+      - "L"
+      - "Light Yagami"
+      - "Рюк"
+      - "Миса Амане"
+    correctAnswerIndex: 1
+  - question: "Какое аниме-студия создала 'Твоё имя'?"
+    answers:
+      - "Studio Ghibli"
+      - "Madhouse"
+      - "CoMix Wave Films"
+      - "Kyoto Animation"
+    correctAnswerIndex: 2
+  - question: "Как называется феномен, когда персонаж аниме краснеет от смущения?"
+    answers:
+      - "Каваии"
+      - "Цундере"
+      - "Ахегао"
+      - "Дере-дере"
+    correctAnswerIndex: 3
+  - question: "Какое аниме рассказывает о мире, где люди имеют сверхспособности?"
+    answers:
+      - "One Punch Man"
+      - "My Hero Academia"
+      - "Hunter x Hunter"
+      - "Fairy Tail"
+    correctAnswerIndex: 1
+  - question: "Кто является главным героем аниме 'Стальной алхимик'?"
+    answers:
+      - "Альфонс Элрик"
+      - "Рой Мустанг"
+      - "Эдвард Элрик"
+      - "Уинри Рокбелл"
+    correctAnswerIndex: 2
+  - question: "Какое аниме считается одним из первых в жанре меха?"
+    answers:
+      - "Neon Genesis Evangelion"
+      - "Gundam"
+      - "Code Geass"
+      - "Mazinger Z"
+    correctAnswerIndex: 3
+  - question: "Как называется японский комикс, на основе которого часто создают аниме?"
+    answers:
+      - "Манхва"
+      - "Маньхуа"
+      - "Манга"
+      - "Комикку"
+    correctAnswerIndex: 2
+  - question: "Какое аниме рассказывает о мире покемонов?"
+    answers:
+      - "Digimon"
+      - "Yu-Gi-Oh!"
+      - "Beyblade"
+      - "Pokémon"
+    correctAnswerIndex: 3
+  - question: "Кто является создателем аниме 'Унесённые призраками'?"
+    answers:
+      - "Хаяо Миядзаки"
+      - "Макото Синкай"
+      - "Сатоси Кон"
+      - "Мамору Хосода"
+    correctAnswerIndex: 0
+  - question: "Какой термин используется для описания преувеличенной реакции персонажа в аниме?"
+    answers:
+      - "Каваии"
+      - "Моэ"
+      - "Сугой"
+      - "Хиперреакция"
+    correctAnswerIndex: 3
+  - question: "Какое аниме рассказывает о мире, где люди сражаются с помощью духовных мечей?"
+    answers:
+      - "Блич"
+      - "Наруто"
+      - "One Piece"
+      - "Демон-слэшер"
+    correctAnswerIndex: 0
+  - question: "Кто является главным героем аниме 'Атака титанов'?"
+    answers:
+      - "Микаса Аккерман"
+      - "Леви Аккерман"
+      - "Эрен Йегер"
+      - "Армин Арлерт"
+    correctAnswerIndex: 2
+  - question: "Какое аниме рассказывает о мальчике, который хочет стать величайшим магом?"
+    answers:
+      - "Fairy Tail"
+      - "Black Clover"
+      - "The Ancient Magus' Bride"
+      - "Магическая битва"
+    correctAnswerIndex: 1
+  - question: "Как называется жанр аниме, ориентированный на молодых мужчин?"
+    answers:
+      - "Сёдзё"
+      - "Сейнен"
+      - "Сёнэн"
+      - "Дзёсей"
+    correctAnswerIndex: 2
+  - question: "Какое аниме рассказывает о мире, где люди живут за стенами, защищаясь от гигантов?"
+    answers:
+      - "Tokyo Ghoul"
+      - "Attack on Titan"
+      - "Kabaneri of the Iron Fortress"
+      - "Claymore"
+    correctAnswerIndex: 1
+  - question: "Кто является создателем манги 'One Piece'?"
+    answers:
+      - "Масаси Кисимото"
+      - "Эйитиро Ода"
+      - "Тайто Кубо"
+      - "Хирому Аракава"
+    correctAnswerIndex: 1
+  - question: "Какое аниме рассказывает о мире, где люди сражаются с помощью карточных игр?"
+    answers:
+      - "Pokémon"
+      - "Digimon"
+      - "Yu-Gi-Oh!"
+      - "Cardfight!! Vanguard"
+    correctAnswerIndex: 2
+  - question: "Как называется японская анимационная студия, известная своими высококачественными анимациями?"
+    answers:
+      - "Toei Animation"
+      - "Madhouse"
+      - "Kyoto Animation"
+      - "Bones"
+    correctAnswerIndex: 2
+  - question: "Какое аниме рассказывает о мальчике, который может превращаться в наполовину демона?"
+    answers:
+      - "Bleach"
+      - "Inuyasha"
+      - "Blue Exorcist"
+      - "Demon Slayer"
+    correctAnswerIndex: 1
+
+  - question: "Какая компания разработала игру 'Minecraft'?"
+    answers:
+      - "Mojang Studios"
+      - "Epic Games"
+      - "Blizzard Entertainment"
+      - "Rockstar Games"
+    correctAnswerIndex: 0
+  - question: "В какой игре главный герой использует портальную пушку для решения головоломок?"
+    answers:
+      - "Half-Life"
+      - "Portal"
+      - "Quantum Break"
+      - "BioShock"
+    correctAnswerIndex: 1
+  - question: "Кто главный герой серии игр 'The Legend of Zelda'?"
+    answers:
+      - "Zelda"
+      - "Ganon"
+      - "Link"
+      - "Mario"
+    correctAnswerIndex: 2
+  - question: "Какая компания создала игровую консоль PlayStation?"
+    answers:
+      - "Microsoft"
+      - "Nintendo"
+      - "Sega"
+      - "Sony"
+    correctAnswerIndex: 3
+  - question: "В какой игре нужно собирать блоки и выживать в открытом мире?"
+    answers:
+      - "Terraria"
+      - "Roblox"
+      - "Minecraft"
+      - "Stardew Valley"
+    correctAnswerIndex: 2
+  - question: "Какой жанр игр предполагает управление целыми армиями или цивилизациями?"
+    answers:
+      - "FPS"
+      - "RPG"
+      - "Стратегия"
+      - "Симулятор"
+    correctAnswerIndex: 2
+  - question: "Как называется популярная серия футбольных симуляторов от EA Sports?"
+    answers:
+      - "PES"
+      - "FIFA"
+      - "Football Manager"
+      - "Madden NFL"
+    correctAnswerIndex: 1
+  - question: "В какой игре герои сражаются на арене, разрушая башни противника?"
+    answers:
+      - "Overwatch"
+      - "Counter-Strike"
+      - "League of Legends"
+      - "Fortnite"
+    correctAnswerIndex: 2
+  - question: "Какая игра считается родоначальником жанра 'королевская битва'?"
+    answers:
+      - "Fortnite"
+      - "PUBG"
+      - "H1Z1"
+      - "Apex Legends"
+    correctAnswerIndex: 1
+  - question: "Кто является главным антагонистом в серии игр 'Super Mario'?"
+    answers:
+      - "Боузер"
+      - "Варио"
+      - "Донки Конг"
+      - "Луиджи"
+    correctAnswerIndex: 0
+  - question: "Какая компания разработала серию игр 'The Sims'?"
+    answers:
+      - "Ubisoft"
+      - "EA Maxis"
+      - "Bethesda"
+      - "Activision"
+    correctAnswerIndex: 1
+  - question: "В какой игре главный герой использует 'крюк-кошку' для передвижения по городу?"
+    answers:
+      - "Batman: Arkham City"
+      - "Spider-Man"
+      - "Assassin's Creed"
+      - "Just Cause"
+    correctAnswerIndex: 0
+  - question: "Какая игра позволяет игрокам создавать и управлять парком развлечений?"
+    answers:
+      - "SimCity"
+      - "Zoo Tycoon"
+      - "RollerCoaster Tycoon"
+      - "Planet Coaster"
+    correctAnswerIndex: 2
+  - question: "Как называется виртуальная валюта в игре 'Roblox'?"
+    answers:
+      - "V-Bucks"
+      - "Robux"
+      - "Minecraft Coins"
+      - "Gems"
+    correctAnswerIndex: 1
+  - question: "Какая игра известна своими сложными боссами и фразой 'You Died'?"
+    answers:
+      - "Bloodborne"
+      - "Sekiro: Shadows Die Twice"
+      - "Dark Souls"
+      - "Demon's Souls"
+    correctAnswerIndex: 2
+  - question: "В какой игре главный герой использует 'Лезвие Эдема' для борьбы с тамплиерами?"
+    answers:
+      - "Prince of Persia"
+      - "Assassin's Creed"
+      - "God of War"
+      - "Devil May Cry"
+    correctAnswerIndex: 1
+  - question: "Какая компания создала игровой движок Unreal Engine?"
+    answers:
+      - "Valve"
+      - "Epic Games"
+      - "Unity Technologies"
+      - "Crytek"
+    correctAnswerIndex: 1
+  - question: "В какой игре герои сражаются на аренах, используя автомобили?"
+    answers:
+      - "Forza Horizon"
+      - "Gran Turismo"
+      - "Rocket League"
+      - "Need for Speed"
+    correctAnswerIndex: 2
+  - question: "Какая игра позволяет игрокам исследовать постапокалиптический мир, населенный мутантами?"
+    answers:
+      - "Metro 2033"
+      - "S.T.A.L.K.E.R."
+      - "Fallout"
+      - "The Last of Us"
+    correctAnswerIndex: 2
+  - question: "Как называется популярная серия шутеров от первого лица, действие которой происходит во время мировых войн?"
+    answers:
+      - "Medal of Honor"
+      - "Battlefield"
+      - "Call of Duty"
+      - "Wolfenstein"
+    correctAnswerIndex: 2
+  - question: "В какой игре главный герой использует 'шаут' для борьбы с драконами?"
+    answers:
+      - "Dragon Age"
+      - "The Witcher"
+      - "The Elder Scrolls V: Skyrim"
+      - "Dark Souls"
+    correctAnswerIndex: 2
+  - question: "Какая игра позволяет игрокам строить и управлять городом?"
+    answers:
+      - "The Sims"
+      - "SimCity"
+      - "Cities: Skylines"
+      - "Tropico"
+    correctAnswerIndex: 2
+  - question: "Как называется популярная серия игр о покемонах?"
+    answers:
+      - "Digimon"
+      - "Yu-Gi-Oh!"
+      - "Pokémon"
+      - "Monster Hunter"
+    correctAnswerIndex: 2
+  - question: "В какой игре главный герой использует 'скрытый клинок' для устранения целей?"
+    answers:
+      - "Hitman"
+      - "Assassin's Creed"
+      - "Dishonored"
+      - "Thief"
+    correctAnswerIndex: 1
+  - question: "Какая компания разработала серию игр 'Grand Theft Auto'?"
+    answers:
+      - "Ubisoft"
+      - "Electronic Arts"
+      - "Rockstar Games"
+      - "Bethesda"
+    correctAnswerIndex: 2
+  - question: "В какой игре игроки строят и управляют парком с динозаврами?"
+    answers:
+      - "Zoo Tycoon"
+      - "Jurassic World Evolution"
+      - "Prehistoric Kingdom"
+      - "ARK: Survival Evolved"
+    correctAnswerIndex: 1
+  - question: "Как называется популярная серия игр-симуляторов фермы?"
+    answers:
+      - "Harvest Moon"
+      - "Stardew Valley"
+      - "Farming Simulator"
+      - "My Time at Portia"
+    correctAnswerIndex: 2
+  - question: "Какая игра позволяет игрокам исследовать огромный открытый мир в роли ковбоя?"
+    answers:
+      - "Gun"
+      - "Call of Juarez"
+      - "Red Dead Redemption"
+      - "Wild West Online"
+    correctAnswerIndex: 2
+  - question: "В какой игре главный герой использует 'поскок' для передвижения по уровням?"
+    answers:
+      - "Sonic the Hedgehog"
+      - "Mario"
+      - "Crash Bandicoot"
+      - "Rayman"
+    correctAnswerIndex: 0
+
+  - question: "Как будет по-английски 'кошка'?"
+    answers:
+      - "Dog"
+      - "Cat"
+      - "Bird"
+      - "Fish"
+    correctAnswerIndex: 1
+  - question: "Какое из этих слов является глаголом?"
+    answers:
+      - "Happy"
+      - "Table"
+      - "Run"
+      - "Big"
+    correctAnswerIndex: 2
+  - question: "Как правильно сказать 'Я студент' на английском?"
+    answers:
+      - "I a student"
+      - "I am student"
+      - "I am a student"
+      - "I is a student"
+    correctAnswerIndex: 2
+  - question: "Какое из этих слов является антонимом к 'big'?"
+    answers:
+      - "Large"
+      - "Huge"
+      - "Small"
+      - "Tall"
+    correctAnswerIndex: 2
+  - question: "Как будет 'спасибо' на английском?"
+    answers:
+      - "Please"
+      - "Sorry"
+      - "Hello"
+      - "Thank you"
+    correctAnswerIndex: 3
+  - question: "Какое местоимение используется для множественного числа?"
+    answers:
+      - "He"
+      - "She"
+      - "It"
+      - "They"
+    correctAnswerIndex: 3
+  - question: "Как правильно написать число 5 на английском?"
+    answers:
+      - "Five"
+      - "Fife"
+      - "Faiv"
+      - "Fayv"
+    correctAnswerIndex: 0
+  - question: "Какой из этих цветов НЕ является основным в английском языке?"
+    answers:
+      - "Red"
+      - "Blue"
+      - "Green"
+      - "Yellow"
+    correctAnswerIndex: 2
+  - question: "Как сказать 'Доброе утро' на английском?"
+    answers:
+      - "Good night"
+      - "Good evening"
+      - "Good afternoon"
+      - "Good morning"
+    correctAnswerIndex: 3
+  - question: "Какое слово используется для обозначения дня недели 'понедельник'?"
+    answers:
+      - "Sunday"
+      - "Monday"
+      - "Friday"
+      - "Saturday"
+    correctAnswerIndex: 1
+  - question: "Как правильно составить вопрос 'Как тебя зовут?' на английском?"
+    answers:
+      - "How you name?"
+      - "What is your name?"
+      - "Who are you called?"
+      - "How do you call?"
+    correctAnswerIndex: 1
+  - question: "Какое из этих слов обозначает фрукт?"
+    answers:
+      - "Carrot"
+      - "Potato"
+      - "Apple"
+      - "Onion"
+    correctAnswerIndex: 2
+  - question: "Как будет 'семья' на английском?"
+    answers:
+      - "Friend"
+      - "Family"
+      - "House"
+      - "School"
+    correctAnswerIndex: 1
+  - question: "Какое из этих слов является числительным?"
+    answers:
+      - "Beautiful"
+      - "Seven"
+      - "Happy"
+      - "Fast"
+    correctAnswerIndex: 1
+  - question: "Как правильно сказать 'Я люблю пиццу' на английском?"
+    answers:
+      - "I am love pizza"
+      - "I loving pizza"
+      - "I love pizza"
+      - "I loves pizza"
+    correctAnswerIndex: 2
 hebrew:
   - question: "מהו כוכב הלכת הגדול ביותר במערכת השמש שלנו?"
     answers:
