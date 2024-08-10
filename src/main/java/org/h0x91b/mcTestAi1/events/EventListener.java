@@ -13,6 +13,8 @@ import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.config.Config;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.entity.Player;
 
 public class EventListener implements Listener {
     private final ClassroomManager classroomManager;
@@ -79,6 +81,26 @@ public class EventListener implements Listener {
         if (classroomManager.isClassroomBlock(blockLocation)) {
             event.setCancelled(true);
             event.getPlayer().sendMessage("Эй, братан! В этой комнате нельзя строить!");
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        try {
+            if (!(event.getDamager() instanceof Player) || !(event.getEntity() instanceof Player)) {
+                return; // We only care about player-vs-player damage
+            }
+
+            Player attacker = (Player) event.getDamager();
+            Player victim = (Player) event.getEntity();
+
+            if (classroomManager.isClassroomBlock(victim.getLocation())) {
+                event.setCancelled(true);
+                attacker.sendMessage("ПвП запрещено в классной комнате!");
+                plugin.getLogger().info("Prevented PvP damage in classroom: " + attacker.getName() + " -> " + victim.getName());
+            }
+        } catch (Exception e) {
+            plugin.getLogger().warning("Error handling PvP event: " + e.getMessage());
         }
     }
 }

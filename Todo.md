@@ -23,6 +23,7 @@ This file contains tasks, improvements, and features that are planned or need to
 - [ ] Randomize order of answers e.g. buttons
 - [ ] Consider implementing a weighted randomization system to slightly favor questions that haven't been asked in a long time
 - [ ] Add a configuration option to control how many nights should pass before questions can be repeated
+- [ ] Add to the best player some cool effect for the next day
 
 ## Medium Priority
 

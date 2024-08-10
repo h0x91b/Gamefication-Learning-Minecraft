@@ -57,7 +57,7 @@ shadowJar {
 
 build.dependsOn shadowJar
 
-def serverPluginsDir = "/Users/arsenyp/Library/CloudStorage/GoogleDrive-h0x91b@gmail.com/My Drive/mc-server/plugins/"
+def serverPluginsDir = "/Users/arsenyp/Library/CloudStorage/GoogleDrive-h0x91b@gmail.com/My Drive/mc-server/plugins/McTestAi1/"
 
 task copyQuestionsYml(type: Copy) {
     from 'src/main/resources/questions.yml'
