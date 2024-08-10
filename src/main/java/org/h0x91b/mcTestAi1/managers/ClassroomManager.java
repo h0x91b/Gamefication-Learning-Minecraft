@@ -188,7 +188,7 @@ public class ClassroomManager {
         // Place buttons on the front wall
         for (int i = 0; i < numButtons; i++) {
             int x = startX + (i * (1 + spacing));
-            Location buttonLoc = new Location(world, roomLoc.getBlockX() + x, roomLoc.getBlockY() + buttonY, roomLoc.getBlockZ() + 1);
+            Location buttonLoc = new Location(world, roomLoc.getBlockX() + x, roomLoc.getBlockY() + buttonY, roomLoc.getBlockZ());
             addQuizButton(world, buttonLoc, BlockFace.SOUTH, i);
         }
         
@@ -206,9 +206,8 @@ public class ClassroomManager {
         quizButtonLocations.add(location);
         classroomBlocks.add(location);
 
-        logger.info("Added quiz button at location: " + location);
-
-        Block signBlock = world.getBlockAt(location.clone().add(0, 1, 0));
+        // Размещаем табличку над кнопкой
+        Block signBlock = world.getBlockAt(location.clone().add(0, 1, 1));
         signBlock.setType(Material.OAK_WALL_SIGN);
         BlockData signData = signBlock.getBlockData();
         if (signData instanceof WallSign) {
@@ -274,10 +273,6 @@ public class ClassroomManager {
     public List<Location> getQuizButtonLocations() {
         logger.info("Retrieving quiz button locations: " + quizButtonLocations);
         return new ArrayList<>(quizButtonLocations);
-    }
-
-    public void cleanup() {
-        cleanupExistingClassroom();
     }
 
     public boolean isStructuralBlock(Block block) {

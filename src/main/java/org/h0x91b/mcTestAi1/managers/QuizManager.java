@@ -11,6 +11,7 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
 import org.bukkit.Material;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.Collections;
 
 public class QuizManager {
     private final Config config;
@@ -30,9 +34,13 @@ public class QuizManager {
     private final Provider<DayNightManager> dayNightManagerProvider;
     private final ClassroomManager classroomManager;
     private final Logger logger;
+    private final JavaPlugin plugin;
+    private final Map<Location, Boolean> buttonStates = new ConcurrentHashMap<>();
+    private List<Question> unusedQuestions;
 
     @Inject
     public QuizManager(JavaPlugin plugin, Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
+        this.plugin = plugin;
         this.config = config;
         this.dayNightManagerProvider = dayNightManagerProvider;
         this.classroomManager = classroomManager;
@@ -61,8 +69,19 @@ public class QuizManager {
         }
         removeAllHolograms();
         updateQuizButtonLocations();
-        currentQuestion = questions.get(random.nextInt(questions.size()));
-        updateQuizButtons();
+
+        if (unusedQuestions == null || unusedQuestions.isEmpty()) {
+            unusedQuestions = new ArrayList<>(questions);
+            Collections.shuffle(unusedQuestions);
+        }
+
+        currentQuestion = unusedQuestions.remove(0);
+
+        // Update all button appearances
+        for (Location buttonLoc : quizButtonLocations) {
+            updateButtonAppearance(buttonLoc, true);
+        }
+
         updateHologramWithCurrentQuestion();
     }
 
@@ -135,8 +154,8 @@ public class QuizManager {
     }
 
     public void handleQuizAnswer(Player player, Location buttonLoc) {
-        if (currentQuestion == null) {
-            player.sendMessage(ChatColor.RED + "The quiz hasn't started yet!");
+        if (currentQuestion == null || !isButtonEnabled(buttonLoc)) {
+            player.sendMessage(ChatColor.RED + "This button is not active!");
             return;
         }
 
@@ -149,15 +168,70 @@ public class QuizManager {
 
         boolean isCorrect = currentQuestion.isCorrectAnswer(index);
 
+        // Disable all buttons
+        for (Location loc : quizButtonLocations) {
+            disableButton(loc);
+            updateButtonAppearance(loc, false);
+        }
+
         if (isCorrect) {
             int additionalTime = dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
             player.sendMessage(ChatColor.GREEN + "Правильно! Твой следующий день будет на " + additionalTime + " " + getSecondsWord(additionalTime) + " длиннее!");
+            scheduleButtonReEnable(1);
         } else {
             String correctAnswer = getCorrectAnswerWithLetter(currentQuestion);
             player.sendMessage(ChatColor.RED + "Неправильно. Правильный ответ был: " + correctAnswer);
+            scheduleButtonReEnable(3);
         }
+    }
 
-        startQuiz();
+    private void scheduleButtonReEnable(int seconds) {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                startQuiz();
+            }
+        }.runTaskLater(plugin, seconds * 20L); // 20 ticks = 1 second
+    }
+
+    private boolean isButtonEnabled(Location buttonLoc) {
+        return buttonStates.getOrDefault(buttonLoc, true);
+    }
+
+    private void disableButton(Location buttonLoc) {
+        buttonStates.put(buttonLoc, false);
+    }
+
+    private void enableButton(Location buttonLoc) {
+        buttonStates.put(buttonLoc, true);
+    }
+
+    private void updateButtonAppearance(Location buttonLoc, boolean enabled) {
+        Block block = buttonLoc.getBlock();
+        block.setType(enabled ? Material.OAK_BUTTON : Material.AIR);
+        // Update the sign above the button
+        Block signBlock = buttonLoc.clone().add(0, 1, 0).getBlock();
+        if (signBlock.getState() instanceof Sign) {
+            Sign sign = (Sign) signBlock.getState();
+            if (enabled && currentQuestion != null) {
+                int index = getButtonIndex(buttonLoc);
+                if (index >= 0 && index < currentQuestion.getAnswers().size()) {
+                    sign.setLine(0, ChatColor.BOLD + String.valueOf((char)('A' + index)));
+                    sign.setLine(1, currentQuestion.getAnswers().get(index));
+                } else {
+                    sign.setLine(0, "");
+                    sign.setLine(1, "");
+                }
+            } else {
+                sign.setLine(0, "");
+                sign.setLine(1, "");
+            }
+            sign.update(true);
+        }
+    }
+
+    private boolean allButtonsDisabled() {
+        return buttonStates.values().stream().noneMatch(enabled -> enabled);
     }
 
     private String getCorrectAnswerWithLetter(Question question) {
@@ -228,9 +302,17 @@ public class QuizManager {
         }
     }
 
+    private void resetButtonStates() {
+        for (Location buttonLoc : quizButtonLocations) {
+            enableButton(buttonLoc);
+            updateButtonAppearance(buttonLoc, true);
+        }
+    }
+
     public void cleanupQuiz() {
         logger.info("Resetting quiz state...");
         removeAllHolograms();
+        resetButtonStates();
         currentQuestion = null;
         logger.info("Quiz state reset completed.");
     }

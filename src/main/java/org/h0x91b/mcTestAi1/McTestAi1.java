@@ -52,6 +52,9 @@ public final class McTestAi1 extends JavaPlugin {
         getServer().getPluginManager().registerEvents(injector.getInstance(EventListener.class), this);
         getServer().getPluginManager().registerEvents(injector.getInstance(ButtonClickListener.class), this);
 
+        // Initialize the quiz
+        quizManager.startQuiz();
+
         // Запуск цикла дня и ночи
         startDayNightCycle();
 

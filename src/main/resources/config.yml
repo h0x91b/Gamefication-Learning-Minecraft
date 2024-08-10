@@ -3,6 +3,8 @@ classroom:
   length: 10
   height: 5
   y: 200
+  x: 20
+  z: 20
 
 day:
   location:
