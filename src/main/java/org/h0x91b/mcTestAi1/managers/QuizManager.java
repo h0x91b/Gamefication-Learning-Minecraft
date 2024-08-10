@@ -142,7 +142,7 @@ public class QuizManager {
 
         Location hologramLocation = classroomLocation.clone().add(0, 1, -4);
 
-        createHologramLine(world, hologramLocation, ChatColor.GOLD + "Question:");
+        createHologramLine(world, hologramLocation, ChatColor.GOLD + "Вопрос:");
         createHologramLine(world, hologramLocation.clone().add(0, -0.25, 0), ChatColor.WHITE + currentQuestion.getQuestion());
 
         List<String> answers = currentQuestion.getAnswers();
@@ -196,14 +196,14 @@ public class QuizManager {
 
     public void handleQuizAnswer(Player player, Location buttonLoc) {
         if (currentQuestion == null || !isButtonEnabled(buttonLoc)) {
-            player.sendMessage(ChatColor.RED + "This button is not active!");
+            player.sendMessage(ChatColor.RED + "Эта кнопка неактивна!");
             return;
         }
 
         int index = getButtonIndex(buttonLoc);
 
         if (index == -1 || index >= currentQuestion.getAnswers().size()) {
-            player.sendMessage(ChatColor.RED + "Invalid answer!");
+            player.sendMessage(ChatColor.RED + "Неверный ответ!");
             return;
         }
 
@@ -352,6 +352,7 @@ public class QuizManager {
             } catch (Exception e) {
                 logger.warning("Faile d to reset button state for location: " + buttonLoc + ". Error: " + e.getMessage());
             }
+        
         }
         logger.info("All button states reset");
     }

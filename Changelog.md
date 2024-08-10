@@ -3,6 +3,31 @@
 ## [Unreleased]
 
 ### Added
+- Implemented question rotation system to prevent repetition
+- Added support for multiple languages (Russian, Hebrew, and English) in questions.yml
+- Implemented a system to slightly favor questions that haven't been asked in a long time
+- Added configuration option to control how many nights should pass before questions can be repeated
+- Expanded question set with more varied topics and difficulty levels
+
+### Changed
+- Refactored QuizManager to improve question selection and management
+- Updated question loading process to support multiple languages from questions.yml
+- Modified DayNightManager to handle more precise time announcements
+- Improved error handling and logging throughout the plugin
+
+### Improved
+- Enhanced quiz experience with better question variety and language support
+- Optimized question management to ensure all questions are used before repeating
+- Improved plugin stability and error resilience
+
+### Fixed
+- Addressed issues with question repetition and randomization
+- Improved cleanup of classroom contents on plugin disable
+- Fixed issues with sign text not updating properly for different languages
+
+## [1.0.1] - 2024-08-10
+
+### Added
 - Implemented PvP damage prevention within the classroom
 - Added configuration option to control PvP permission in the classroom
 - Implemented cooldown for PvP warning messages
