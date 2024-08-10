@@ -21,6 +21,9 @@ public class EventListener implements Listener {
     private final DayNightManager dayNightManager;
     private final JavaPlugin plugin;
     private final Config config;
+    private static final int MAX_TELEPORT_ATTEMPTS = 3;
+    private static final long TELEPORT_DELAY_TICKS = 100L; // 5 seconds
+    private static final long LOCATION_CHECK_DELAY_TICKS = 40L; // 2 seconds after teleport
 
     @Inject
     public EventListener(ClassroomManager classroomManager, DayNightManager dayNightManager, JavaPlugin plugin, Config config) {
@@ -69,35 +72,14 @@ public class EventListener implements Listener {
         Player player = event.getEntity();
         plugin.getLogger().info("Игрок " + player.getName() + " умер. Планирование телепортации...");
 
-        // Schedule teleportation for 1 second (20 ticks) later to ensure the player has respawned
+        // Schedule teleportation for 5 seconds (100 ticks) later to ensure the player has fully respawned
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            try {
-                boolean isNight = dayNightManager.isNight();
-                boolean isClassroomCreated = classroomManager.isClassroomCreated();
-                plugin.getLogger().info("Состояние: Ночь - " + isNight + ", Класс создан - " + isClassroomCreated);
-
-                if (isNight && isClassroomCreated) {
-                    Location classroomLocation = classroomManager.getClassroomLocation();
-                    if (classroomLocation != null) {
-                        player.teleport(classroomLocation);
-                        plugin.getLogger().info("Телепортирован " + player.getName() + " в класс после смерти на координаты " + locationToString(classroomLocation));
-                        player.sendMessage("Вы умерли ночью, поэтому были телепортированы в класс.");
-                    } else {
-                        plugin.getLogger().severe("Не удалось получить местоположение класса. Телепортация не выполнена.");
-                        teleportToFallbackLocation(player);
-                    }
-                } else {
-                    Location dayLocation = config.getDayLocation(player.getWorld());
-                    player.teleport(dayLocation);
-                    plugin.getLogger().info("Телепортирован " + player.getName() + " в дневную локацию после смерти на координаты " + locationToString(dayLocation));
-                    player.sendMessage("Вы умерли днем, поэтому были телепортированы в дневную локацию.");
-                }
-            } catch (Exception e) {
-                plugin.getLogger().severe("Ошибка при телепортации игрока " + player.getName() + " после смерти: " + e.getMessage());
-                e.printStackTrace();
-                teleportToFallbackLocation(player);
+            if (player.isOnline()) {
+                teleportPlayerAfterDeath(player, 1);
+            } else {
+                plugin.getLogger().warning("Player " + player.getName() + " is offline. Teleportation cancelled.");
             }
-        }, 20L); // 20 ticks = 1 second
+        }, TELEPORT_DELAY_TICKS);
     }
 
     @EventHandler
@@ -127,6 +109,63 @@ public class EventListener implements Listener {
         } catch (Exception e) {
             plugin.getLogger().warning("Error handling PvP event: " + e.getMessage());
         }
+    }
+
+    private void teleportPlayerAfterDeath(Player player, int attempt) {
+        try {
+            boolean isNight = dayNightManager.isNight();
+            boolean isClassroomCreated = classroomManager.isClassroomCreated();
+            plugin.getLogger().info("Попытка телепортации " + attempt + ": Состояние: Ночь - " + isNight + ", Класс создан - " + isClassroomCreated);
+
+            Location targetLocation;
+            if (isNight && isClassroomCreated) {
+                targetLocation = classroomManager.getClassroomLocation();
+                if (targetLocation == null) {
+                    plugin.getLogger().severe("Не удалось получить местоположение класса. Переход к запасному варианту.");
+                    teleportToFallbackLocation(player);
+                    return;
+                }
+            } else {
+                targetLocation = config.getDayLocation(player.getWorld());
+            }
+
+            Location beforeTeleport = player.getLocation();
+            plugin.getLogger().info("Текущее местоположение игрока " + player.getName() + ": " + locationToString(beforeTeleport));
+            plugin.getLogger().info("Целевое местоположение: " + locationToString(targetLocation));
+
+            player.teleport(targetLocation);
+            plugin.getLogger().info("Телепортирован " + player.getName() + " на координаты " + locationToString(targetLocation));
+
+            // Check player's location after a short delay
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                Location afterTeleport = player.getLocation();
+                plugin.getLogger().info("Местоположение игрока " + player.getName() + " после телепортации: " + locationToString(afterTeleport));
+
+                if (!isPlayerAtLocation(player, targetLocation)) {
+                    plugin.getLogger().warning("Игрок " + player.getName() + " не находится в ожидаемом местоположении после телепортации.");
+                    if (attempt < MAX_TELEPORT_ATTEMPTS) {
+                        plugin.getLogger().info("Повторная попытка телепортации...");
+                        teleportPlayerAfterDeath(player, attempt + 1);
+                    } else {
+                        plugin.getLogger().severe("Достигнуто максимальное количество попыток телепортации. Переход к запасному варианту.");
+                        teleportToFallbackLocation(player);
+                    }
+                } else {
+                    player.sendMessage("Вы были телепортированы после смерти.");
+                }
+            }, LOCATION_CHECK_DELAY_TICKS);
+
+        } catch (Exception e) {
+            plugin.getLogger().severe("Ошибка при телепортации игрока " + player.getName() + " после смерти: " + e.getMessage());
+            e.printStackTrace();
+            teleportToFallbackLocation(player);
+        }
+    }
+
+    private boolean isPlayerAtLocation(Player player, Location targetLocation) {
+        Location playerLoc = player.getLocation();
+        return playerLoc.getWorld().equals(targetLocation.getWorld()) &&
+               playerLoc.distanceSquared(targetLocation) < 4.0; // Allow for larger discrepancies (2 block radius)
     }
 
     private void teleportToFallbackLocation(Player player) {
