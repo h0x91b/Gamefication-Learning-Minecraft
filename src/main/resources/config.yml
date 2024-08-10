@@ -1,0 +1,14 @@
+classroom:
+  width: 15
+  length: 10
+  height: 5
+  y: 200
+  x: 20
+  z: 20
+
+day:
+  location:
+    x: -36
+    y: 76
+    z: 60
+    world: world
