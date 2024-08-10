@@ -3,6 +3,10 @@
 ## [Unreleased]
 
 ### Added
+- Implemented PvP damage prevention within the classroom
+- Added configuration option to control PvP permission in the classroom
+- Implemented cooldown for PvP warning messages
+- Improved PvP warning message
 - Improved day-night cycle with more precise countdown
 - Second-by-second countdown for the last 10 seconds of each day/night phase
 - Automatic classroom creation on plugin enable
@@ -14,6 +18,8 @@
 - Implemented question rotation to prevent repetition
 
 ### Changed
+- Updated EventListener to handle PvP events in the classroom
+- Modified Config class to include PvP permission setting
 - Modified `DayNightManager` to handle more precise time announcements
 - Updated `McTestAi1` main class to handle automatic setup on plugin enable
 - Refactored timer logic in `DayNightManager` for better performance and accuracy
@@ -24,6 +30,11 @@
 - Updated `ClassroomManager` to improve button and sign placement
 - Modified `ButtonClickListener` to work with the new button state system
 
+### Improved
+- Enhanced player safety within the classroom environment
+- Enhanced the quiz experience with better visual feedback
+- Optimized question management to ensure all questions are used before repeating
+
 ### Removed
 - Manual `/createroom` command functionality
 
@@ -33,10 +44,6 @@
 - Corrected the placement of quiz buttons and signs in the classroom
 - Fixed issues with sign text not updating properly
 - Resolved problems with buttons floating or being misplaced
-
-### Improved
-- Enhanced the quiz experience with better visual feedback
-- Optimized question management to ensure all questions are used before repeating
 
 ## [0.2.0] - 2023-08-08
 

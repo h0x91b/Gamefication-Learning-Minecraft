@@ -12,11 +12,11 @@ This file contains tasks, improvements, and features that are planned or need to
 - [x] Add handling of player logins depending on the time of day (teleport to classroom if night)
 - [x] Improve error handling when creating a classroom
 - [x] Prohibit any building or block placement within the classroom
-- [ ] Disable player-vs-player damage within the classroom
+- [x] Disable player-vs-player damage within the classroom
 - [x] Implement a 3-second cooldown with button disappearance after an incorrect answer
 - [x] Add a 1-second cooldown with button disappearance after a correct answer
-- [ ] Move all questions and answers from code to a YAML configuration file
-- [ ] Implement language selection support for Russian, Hebrew, and English
+- [x] Move all questions and answers from code to a YAML configuration file
+- [x] Implement language selection support for Russian, Hebrew, and English
 - [x] Show earned time after each correct answer
 - [x] Optimize classroom cleanup process to occur only once at game start
 - [x] Improve quiz button setup and management
@@ -35,7 +35,7 @@ This file contains tasks, improvements, and features that are planned or need to
 
 ## Low Priority
 
-- [ ] Add more varied questions to the hardcoded question set
+- [x] Add more varied questions to the hardcoded question set
 - [ ] Implement difficulty scaling for quizzes based on player performance
 - [ ] Create a GUI for quiz answer selection instead of buttons
 - [ ] Add custom models for classroom furniture (desks, chairs, etc.)
