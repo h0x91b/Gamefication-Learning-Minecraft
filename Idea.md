@@ -6,8 +6,8 @@ Develop a Minecraft plugin for PaperMC that creates an educational environment w
 ## Core Functionality
 
 ### Day-Night Cycle
-- Night duration: 60 seconds (fixed)
-- Day duration: 30 seconds + 30 seconds per correct answer from the previous night
+- Night duration: 90 seconds (fixed)
+- Day duration: 30 seconds + 20 seconds per correct answer from the previous night
 - Implement a custom day-night cycle independent of the vanilla Minecraft cycle
 
 ### Classroom

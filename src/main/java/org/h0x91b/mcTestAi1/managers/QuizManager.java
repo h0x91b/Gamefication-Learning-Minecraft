@@ -23,12 +23,14 @@ import java.util.logging.Logger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class QuizManager {
     private final Config config;
     private final List<ArmorStand> holograms = new ArrayList<>();
     private List<Location> quizButtonLocations;
-    private final List<Question> questions = new ArrayList<>();
+    private final Map<String, List<Question>> questions = new HashMap<>();
     private final Random random = new Random();
     private Question currentQuestion;
     private final Provider<DayNightManager> dayNightManagerProvider;
@@ -37,6 +39,10 @@ public class QuizManager {
     private final JavaPlugin plugin;
     private final Map<Location, Boolean> buttonStates = new ConcurrentHashMap<>();
     private List<Question> unusedQuestions;
+    private String currentLanguage = "russian";
+    private List<Question> usedQuestions;
+    private final int RECENT_QUESTIONS_TO_AVOID = 5;
+    private LinkedList<Question> recentlyUsedQuestions = new LinkedList<>();
 
     @Inject
     public QuizManager(JavaPlugin plugin, Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
@@ -45,8 +51,11 @@ public class QuizManager {
         this.dayNightManagerProvider = dayNightManagerProvider;
         this.classroomManager = classroomManager;
         this.logger = plugin.getLogger();
+        this.unusedQuestions = new ArrayList<>();
         initializeQuestions();
         updateQuizButtonLocations();
+        this.usedQuestions = new ArrayList<>();
+        resetQuestionPool();
     }
 
     private void updateQuizButtonLocations() {
@@ -55,34 +64,66 @@ public class QuizManager {
     }
 
     private void initializeQuestions() {
-        questions.add(new Question("What is the capital of France?",
-                List.of("London", "Berlin", "Paris", "Madrid"), 2));
-        questions.add(new Question("Which planet is known as the Red Planet?",
-                List.of("Venus", "Mars", "Jupiter", "Saturn"), 1));
-        questions.add(new Question("What is the largest mammal in the world?",
-                List.of("Elephant", "Blue Whale", "Giraffe", "Hippopotamus"), 1));
+        List<String> supportedLanguages = List.of("english", "russian", "hebrew");
+        for (String language : supportedLanguages) {
+            List<Question> loadedQuestions = config.getQuestions(language);
+            questions.put(language, loadedQuestions);
+            logger.info("Loaded " + loadedQuestions.size() + " questions for language: " + language);
+        }
+        if (questions.values().stream().allMatch(List::isEmpty)) {
+            logger.severe("No questions loaded for any language. Please check your questions.yml file.");
+        }
+    }
+
+    public void resetQuestionPool() {
+        List<Question> allQuestions = new ArrayList<>(questions.get(currentLanguage));
+        if (allQuestions.isEmpty()) {
+            logger.severe("No questions available for language: " + currentLanguage);
+            return;
+        }
+        unusedQuestions = new ArrayList<>(allQuestions);
+        usedQuestions.clear();
+        recentlyUsedQuestions.clear();
+        Collections.shuffle(unusedQuestions, random);
+        logger.info("Question pool has been reset and shuffled. Total questions: " + unusedQuestions.size());
     }
 
     public void startQuiz() {
-        if (questions.isEmpty()) {
-            throw new IllegalStateException("No questions available for the quiz!");
+        if (questions.get(currentLanguage).isEmpty()) {
+            throw new IllegalStateException("No questions available for the quiz in the current language!");
         }
         removeAllHolograms();
         updateQuizButtonLocations();
 
-        if (unusedQuestions == null || unusedQuestions.isEmpty()) {
-            unusedQuestions = new ArrayList<>(questions);
-            Collections.shuffle(unusedQuestions);
+        if (unusedQuestions.isEmpty()) {
+            resetQuestionPool();
         }
 
-        currentQuestion = unusedQuestions.remove(0);
-
-        // Update all button appearances
-        for (Location buttonLoc : quizButtonLocations) {
-            updateButtonAppearance(buttonLoc, true);
+        Question selectedQuestion = null;
+        for (Question question : unusedQuestions) {
+            if (!recentlyUsedQuestions.contains(question)) {
+                selectedQuestion = question;
+                break;
+            }
         }
 
+        if (selectedQuestion == null) {
+            selectedQuestion = unusedQuestions.get(0);
+            logger.info("All questions have been recently used. Selecting the least recently used question.");
+        }
+
+        currentQuestion = selectedQuestion;
+        unusedQuestions.remove(currentQuestion);
+        usedQuestions.add(currentQuestion);
+
+        recentlyUsedQuestions.addFirst(currentQuestion);
+        if (recentlyUsedQuestions.size() > RECENT_QUESTIONS_TO_AVOID) {
+            recentlyUsedQuestions.removeLast();
+        }
+
+        resetAllButtonStates();
         updateHologramWithCurrentQuestion();
+        logger.info("New quiz question started: " + currentQuestion.getQuestion());
     }
 
     private void updateHologramWithCurrentQuestion() {
@@ -101,7 +142,7 @@ public class QuizManager {
 
         Location hologramLocation = classroomLocation.clone().add(0, 1, -4);
 
-        createHologramLine(world, hologramLocation, ChatColor.GOLD + "Question:");
+        createHologramLine(world, hologramLocation, ChatColor.GOLD + "Вопрос:");
         createHologramLine(world, hologramLocation.clone().add(0, -0.25, 0), ChatColor.WHITE + currentQuestion.getQuestion());
 
         List<String> answers = currentQuestion.getAnswers();
@@ -155,20 +196,19 @@ public class QuizManager {
 
     public void handleQuizAnswer(Player player, Location buttonLoc) {
         if (currentQuestion == null || !isButtonEnabled(buttonLoc)) {
-            player.sendMessage(ChatColor.RED + "This button is not active!");
+            player.sendMessage(ChatColor.RED + "Эта кнопка неактивна!");
             return;
         }
 
         int index = getButtonIndex(buttonLoc);
 
         if (index == -1 || index >= currentQuestion.getAnswers().size()) {
-            player.sendMessage(ChatColor.RED + "Invalid answer!");
+            player.sendMessage(ChatColor.RED + "Неверный ответ!");
             return;
         }
 
         boolean isCorrect = currentQuestion.isCorrectAnswer(index);
 
-        // Disable all buttons
         for (Location loc : quizButtonLocations) {
             disableButton(loc);
             updateButtonAppearance(loc, false);
@@ -183,15 +223,19 @@ public class QuizManager {
             player.sendMessage(ChatColor.RED + "Неправильно. Правильный ответ был: " + correctAnswer);
             scheduleButtonReEnable(3);
         }
+
+        logger.info("Answer processed. Correct: " + isCorrect + ". Buttons will be re-enabled shortly.");
     }
 
     private void scheduleButtonReEnable(int seconds) {
         new BukkitRunnable() {
             @Override
             public void run() {
+                logger.info("Re-enabling buttons after " + seconds + " seconds");
+                resetAllButtonStates();
                 startQuiz();
             }
-        }.runTaskLater(plugin, seconds * 20L); // 20 ticks = 1 second
+        }.runTaskLater(plugin, seconds * 20L);
     }
 
     private boolean isButtonEnabled(Location buttonLoc) {
@@ -209,7 +253,6 @@ public class QuizManager {
     private void updateButtonAppearance(Location buttonLoc, boolean enabled) {
         Block block = buttonLoc.getBlock();
         block.setType(enabled ? Material.OAK_BUTTON : Material.AIR);
-        // Update the sign above the button
         Block signBlock = buttonLoc.clone().add(0, 1, 0).getBlock();
         if (signBlock.getState() instanceof Sign) {
             Sign sign = (Sign) signBlock.getState();
@@ -268,9 +311,8 @@ public class QuizManager {
     }
 
     public void removeAllHolograms() {
-        removeExistingHolograms(); // Remove holograms tracked by this class
+        removeExistingHolograms();
 
-        // Remove any stray holograms in the classroom
         if (classroomManager.isClassroomCreated()) {
             Location classroomLocation = classroomManager.getClassroomLocation();
             World world = classroomLocation.getWorld();
@@ -302,17 +344,23 @@ public class QuizManager {
         }
     }
 
-    private void resetButtonStates() {
+    private void resetAllButtonStates() {
         for (Location buttonLoc : quizButtonLocations) {
-            enableButton(buttonLoc);
-            updateButtonAppearance(buttonLoc, true);
+            try {
+                enableButton(buttonLoc);
+                updateButtonAppearance(buttonLoc, true);
+            } catch (Exception e) {
+                logger.warning("Faile d to reset button state for location: " + buttonLoc + ". Error: " + e.getMessage());
+            }
+        
         }
+        logger.info("All button states reset");
     }
 
     public void cleanupQuiz() {
         logger.info("Resetting quiz state...");
         removeAllHolograms();
-        resetButtonStates();
+        resetAllButtonStates();
         currentQuestion = null;
         logger.info("Quiz state reset completed.");
     }
@@ -335,5 +383,15 @@ public class QuizManager {
                location.getX() >= classroomLoc.getX() && location.getX() < classroomLoc.getX() + width &&
                location.getY() >= classroomLoc.getY() && location.getY() < classroomLoc.getY() + height &&
                location.getZ() >= classroomLoc.getZ() && location.getZ() < classroomLoc.getZ() + length;
+    }
+
+    public void setLanguage(String language) {
+        if (questions.containsKey(language)) {
+            this.currentLanguage = language;
+            unusedQuestions = null;
+            logger.info("Quiz language changed to: " + language);
+        } else {
+            logger.warning("Attempted to set unsupported language: " + language);
+        }
     }
 }

@@ -24,7 +24,7 @@ public class DayNightManager {
 
     private boolean isNight = false;
     private int dayDuration = 30; // начальная длительность дня в секундах
-    private final int nightDuration = 60; // длительность ночи в секундах
+    private final int nightDuration = 90; // длительность ночи в секундах
     private Map<UUID, Integer> playerScores = new HashMap<>();
     private Map<UUID, Location> playerLocations = new HashMap<>();
 
@@ -67,7 +67,7 @@ public class DayNightManager {
 
         // Расчёт новой длительности дня
         int totalScore = playerScores.values().stream().mapToInt(Integer::intValue).sum();
-        dayDuration = 30 + (totalScore * 30); // 30 секунд + 30 секунд за каждый правильный ответ
+        dayDuration = 30 + (totalScore * 20); // 30 секунд + 20 секунд за каждый правильный ответ
         playerScores.clear(); // сбрасываем счёт
 
         remainingTime = dayDuration;
@@ -81,6 +81,7 @@ public class DayNightManager {
 
         try {
             logger.info("Resetting quiz for the night...");
+            quizManager.resetQuestionPool(); // Reset and shuffle question pool for the new night
             quizManager.cleanupQuiz();
             logger.info("Quiz reset completed.");
         } catch (Exception e) {
@@ -212,6 +213,6 @@ public class DayNightManager {
     }
 
     public int calculateAdditionalTime(int score) {
-        return score * 30; // 30 секунд за каждый правильный ответ
+        return score * 20; // 20 секунд за каждый правильный ответ
     }
 }
