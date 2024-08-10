@@ -2,6 +2,7 @@ package org.h0x91b.mcTestAi1.events;
 
 import com.google.inject.Inject;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,6 +10,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -108,6 +110,18 @@ public class EventListener implements Listener {
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Error handling PvP event: " + e.getMessage());
+        }
+    }
+
+    @EventHandler
+    public void onSignChange(SignChangeEvent event) {
+        Player player = event.getPlayer();
+        Location signLocation = event.getBlock().getLocation();
+
+        if (classroomManager.isClassroomBlock(signLocation)) {
+            event.setCancelled(true);
+            player.sendMessage(ChatColor.RED + "Изменение табличек в классной комнате запрещено!");
+            plugin.getLogger().info("Prevented sign change by " + player.getName() + " in classroom at " + signLocation);
         }
     }
 
