@@ -25,6 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.logging.Level;
 
 public class QuizManager {
     private final Config config;
@@ -123,6 +124,7 @@ public class QuizManager {
 
         resetAllButtonStates();
         updateHologramWithCurrentQuestion();
+        updateQuizButtons();
         logger.info("New quiz question started: " + currentQuestion.getQuestion());
     }
 
@@ -173,8 +175,12 @@ public class QuizManager {
     }
 
     private void updateQuizButtons() {
-        if (currentQuestion == null || quizButtonLocations.isEmpty()) return;
+        if (currentQuestion == null || quizButtonLocations.isEmpty()) {
+            logger.warning("Cannot update quiz buttons: currentQuestion is null or quizButtonLocations is empty");
+            return;
+        }
 
+        logger.info("Updating quiz buttons for question: " + currentQuestion.getQuestion());
         for (int i = 0; i < quizButtonLocations.size() && i < currentQuestion.getAnswers().size(); i++) {
             Location buttonLoc = quizButtonLocations.get(i);
             String answerText = currentQuestion.getAnswers().get(i);
@@ -184,13 +190,17 @@ public class QuizManager {
     }
 
     private void updateButtonSign(Location buttonLoc, String buttonLabel, String answerText) {
-        Location signLoc = buttonLoc.clone().add(0, 1, 0);
+        Location signLoc = buttonLoc.clone().add(0, 1, 1);
         Block signBlock = signLoc.getBlock();
         if (signBlock.getState() instanceof Sign) {
             Sign sign = (Sign) signBlock.getState();
             sign.setLine(0, ChatColor.BOLD + buttonLabel);
-            sign.setLine(1, answerText);
+            sign.setLine(1, answerText != null ? answerText : "");
             sign.update(true);
+            logger.log(Level.INFO, "Updated sign at {0}: Line 0: {1}, Line 1: {2}", 
+                new Object[]{signLoc, sign.getLine(0), sign.getLine(1)});
+        } else {
+            logger.warning("Expected sign block not found at " + signLoc);
         }
     }
 
@@ -261,15 +271,20 @@ public class QuizManager {
                 if (index >= 0 && index < currentQuestion.getAnswers().size()) {
                     sign.setLine(0, ChatColor.BOLD + String.valueOf((char)('A' + index)));
                     sign.setLine(1, currentQuestion.getAnswers().get(index));
+                    logger.log(Level.INFO, "Setting sign text for button {0}: {1}", 
+                        new Object[]{index, currentQuestion.getAnswers().get(index)});
                 } else {
                     sign.setLine(0, "");
                     sign.setLine(1, "");
+                    logger.warning("Invalid button index: " + index);
                 }
             } else {
                 sign.setLine(0, "");
                 sign.setLine(1, "");
             }
             sign.update(true);
+        } else {
+            logger.warning("Expected sign block not found above button at " + buttonLoc);
         }
     }
 
@@ -350,9 +365,8 @@ public class QuizManager {
                 enableButton(buttonLoc);
                 updateButtonAppearance(buttonLoc, true);
             } catch (Exception e) {
-                logger.warning("Faile d to reset button state for location: " + buttonLoc + ". Error: " + e.getMessage());
+                logger.warning("Failed to reset button state for location: " + buttonLoc + ". Error: " + e.getMessage());
             }
-        
         }
         logger.info("All button states reset");
     }

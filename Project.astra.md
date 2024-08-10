@@ -1,4 +1,4 @@
-# Important notes
+## !Important!
 
-- In this project we do not write tests
-- We are update Changelog.md and Todo.md after each codding step
+- Do not write any unit or other tests
+- Update `Changelog.md` and `Todo.md` in each codding step
