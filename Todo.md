@@ -11,13 +11,13 @@ This file contains tasks, improvements, and features that are planned or need to
 - [x] Improve error handling when creating a classroom
 - [x] Prohibit any building or block placement within the classroom
 - [ ] Disable player-vs-player damage within the classroom
-- [ ] Implement a 3-second cooldown with button disappearance after an incorrect answer
-- [ ] Add a 1-second cooldown with button disappearance after a correct answer
+- [x] Implement a 3-second cooldown with button disappearance after an incorrect answer
+- [x] Add a 1-second cooldown with button disappearance after a correct answer
 - [ ] Move all questions and answers from code to a YAML configuration file
 - [ ] Implement language selection support for Russian, Hebrew, and English
 - [x] Show earned time after each correct answer
 - [x] Optimize classroom cleanup process to occur only once at game start
-- [ ] Improve quiz button setup and management
+- [x] Improve quiz button setup and management
 - [ ] Randomize order of answers e.g. buttons
 
 ## Medium Priority

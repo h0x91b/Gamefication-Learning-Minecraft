@@ -8,6 +8,10 @@
 - Automatic classroom creation on plugin enable
 - Player teleportation system for joining and respawning during day/night cycles
 - Configurable day location in config.yml
+- Improved quiz system with button state management
+- Implemented button disappearance and reappearance after answering
+- Added cooldown periods after answering (1 second for correct, 3 seconds for incorrect)
+- Implemented question rotation to prevent repetition
 
 ### Changed
 - Modified `DayNightManager` to handle more precise time announcements
@@ -16,6 +20,9 @@
 - Improved classroom cleanup process
 - Enhanced quiz system with better hologram management
 - Optimized classroom cleanup to occur only once at game start, improving performance
+- Refactored `QuizManager` for better button and sign management
+- Updated `ClassroomManager` to improve button and sign placement
+- Modified `ButtonClickListener` to work with the new button state system
 
 ### Removed
 - Manual `/createroom` command functionality
@@ -23,6 +30,13 @@
 ### Fixed
 - Addressed issues with lingering holograms and quiz elements
 - Improved cleanup of classroom contents on plugin disable
+- Corrected the placement of quiz buttons and signs in the classroom
+- Fixed issues with sign text not updating properly
+- Resolved problems with buttons floating or being misplaced
+
+### Improved
+- Enhanced the quiz experience with better visual feedback
+- Optimized question management to ensure all questions are used before repeating
 
 ## [0.2.0] - 2023-08-08
 
