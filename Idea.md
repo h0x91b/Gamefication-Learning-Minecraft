@@ -1,81 +1,70 @@
-# Educational Minecraft Server Plugin Technical Specification
+# McTestAi1 - Educational Minecraft Plugin
 
-## Overview
-Develop a Minecraft plugin for PaperMC that creates an educational environment where players (school-age children) can learn through gameplay. The plugin will alternate between regular gameplay during the day and educational quizzes at night.
+## Core Concept
 
-## Core Functionality
+McTestAi1 is a Minecraft plugin that transforms the game into an interactive educational platform. It creates a unique day-night cycle where night is dedicated to learning, and day is for applying knowledge and relaxation.
 
-### Day-Night Cycle
-- Night duration: 90 seconds (fixed)
-- Day duration: 30 seconds + 20 seconds per correct answer from the previous night
-- Implement a custom day-night cycle independent of the vanilla Minecraft cycle
+## How it works
 
-### Classroom
-- Dimensions: 15x10x5 (interior)
-- Location: Y-coordinate 200
-- Construction:
-    - Walls: Stone bricks
-    - Floor: Alternating glass and oak planks in a checkered pattern
-    - Ceiling: Glass
-    - Lighting: Wall-mounted torches
-    - Blackboard: Black concrete
-- Protection: Players cannot break or place blocks in the classroom
+1. **Day Cycle:**
+  - Players freely explore the world and engage in normal Minecraft activities.
+  - The duration of the day depends on players' success in nightly quizzes.
+  - Day length starts at 30 seconds and increases by 20 seconds for each correct answer from the previous night.
 
-### Teleportation System
-- At night start: Teleport all players to the classroom
-- At day start: Return players to their previous locations
-- Save player coordinates before teleportation
-- Handle player logins:
-    - If logging in during night, teleport to classroom
-    - If logging in during day, spawn at last daytime location
+2. **Night Cycle:**
+  - All players are automatically teleported to a specially created "classroom".
+  - The classroom is a protected space where building and PvP are disabled.
+  - A quiz with questions on various topics is conducted in the classroom.
+  - Night duration is fixed at 90 seconds.
 
-### Inventory Management
-- During night: Make player inventories inactive (but visible)
-- During day: Restore full inventory functionality
+3. **Quiz System:**
+  - Questions are displayed as holograms in the center of the classroom.
+  - Answer options appear on signs above buttons.
+  - Players answer by clicking on the corresponding button.
+  - Questions are randomly selected from a configurable pool, with measures to prevent frequent repetition.
 
-### Quiz System
-- Use existing button and sign system (A, B, C, D options)
-- Display questions using hologram system (ArmorStand entities)
-- Hardcode a set of questions initially (prepare for future API integration)
-- 2-second delay between questions
-- Simple sound effect for correct/incorrect answers (e.g., thunder sound)
+4. **Reward System:**
+  - Correct answers add extra time to the next day cycle.
+  - This incentivizes players to actively participate in quizzes and learn.
 
-### Scoring
-- Award points for correct answers
-- Use points to calculate the next day's duration
+5. **Multilingual Support:**
+  - Questions can be configured in multiple languages (currently Russian, English, and Hebrew).
+  - The plugin can switch between languages, allowing for diverse educational experiences.
 
-## Technical Requirements
+6. **Automatic Classroom Management:**
+  - The classroom is automatically created at a specified height when the plugin starts.
+  - It includes features like a blackboard, lighting, and quiz buttons.
+  - The room is protected from modifications to maintain its structure.
 
-### Commands
-- `/createroom`: Creates the classroom (admin only)
+7. **Player Management:**
+  - Players are automatically teleported to the classroom at night and back to their previous locations during the day.
+  - New players joining during night time are teleported directly to the classroom.
 
-### Events to Handle
-- Day start
-- Night start
-- Player join
-- Player interact (for quiz answers)
-- Block break (for classroom protection)
+## Key Features
 
-### Optimization
-- Ensure efficient teleportation of multiple players
-- Optimize question display and answer processing
+- Automatic creation and management of the classroom.
+- Dynamic day-night cycle with quiz-based day duration.
+- Multi-language support for questions (Russian, English, Hebrew).
+- Protection system for the classroom (no block breaking, no PvP).
+- Automatic player teleportation based on time of day.
+- Configurable quiz questions via YAML file.
+- Visual feedback for quiz answers (button disappearance, cooldowns).
 
-## Future Considerations (Not in current scope)
-- Integration with AI for question generation
-- Leaderboard system
-- Difficulty scaling based on player count
-- Visual effects for correct/incorrect answers
+## Project Goals
 
-## Development Phases
-1. Implement basic room creation and protection
-2. Develop custom day-night cycle
-3. Create teleportation and inventory management systems
-4. Implement quiz system with hardcoded questions
-5. Develop scoring and day duration calculation
-6. Add sound effects for answers
-7. Thorough testing and bug fixing
+The main aim is to create an engaging educational environment where learning becomes a natural part of the gameplay. The plugin strives to make education interesting and interactive, rewarding players for their knowledge and curiosity.
 
-## Notes
-- Ensure code is well-commented and follows best practices
-- Regularly commit changes to version control
-- Document any dependencies or required server configurations
+## Target Audience
+
+- Educational institutions using Minecraft in teaching.
+- Minecraft servers wanting to add an educational element.
+- Parents and teachers looking for ways to combine gaming and learning.
+
+## Future Development
+
+- Adding new question types and tasks.
+- Integrating with external APIs for dynamic question generation.
+- Expanding the reward system and achievements.
+- Creating tools for teachers to manage content.
+
+McTestAi1 aims to make learning in Minecraft both fun and effective, blending gameplay with educational objectives.
