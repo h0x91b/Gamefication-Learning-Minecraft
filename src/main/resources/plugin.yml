@@ -8,3 +8,5 @@ commands:
   createroom:
     description: Creates a 10x10x5 room at height 200
     usage: /<command>
+
+config: questions.yml

@@ -1,0 +1,509 @@
+english:
+  - question: "What is the largest planet in our solar system?"
+    answers:
+      - "Saturn"
+      - "Jupiter"
+      - "Neptune"
+      - "Uranus"
+    correctAnswerIndex: 1
+  - question: "Who wrote the play 'Romeo and Juliet'?"
+    answers:
+      - "Charles Dickens"
+      - "Jane Austen"
+      - "William Shakespeare"
+      - "Mark Twain"
+    correctAnswerIndex: 2
+  - question: "What is the chemical symbol for gold?"
+    answers:
+      - "Go"
+      - "Gd"
+      - "Au"
+      - "Ag"
+    correctAnswerIndex: 2
+  - question: "Which country is home to the Great Barrier Reef?"
+    answers:
+      - "Brazil"
+      - "Indonesia"
+      - "Philippines"
+      - "Australia"
+    correctAnswerIndex: 3
+  - question: "What is the capital city of Japan?"
+    answers:
+      - "Seoul"
+      - "Beijing"
+      - "Tokyo"
+      - "Bangkok"
+    correctAnswerIndex: 2
+  - question: "Who painted the Mona Lisa?"
+    answers:
+      - "Vincent van Gogh"
+      - "Pablo Picasso"
+      - "Leonardo da Vinci"
+      - "Michelangelo"
+    correctAnswerIndex: 2
+  - question: "What is the largest organ in the human body?"
+    answers:
+      - "Heart"
+      - "Brain"
+      - "Liver"
+      - "Skin"
+    correctAnswerIndex: 3
+  - question: "Which planet is known as the 'Morning Star' or 'Evening Star'?"
+    answers:
+      - "Mars"
+      - "Venus"
+      - "Mercury"
+      - "Jupiter"
+    correctAnswerIndex: 1
+  - question: "What is the main ingredient in guacamole?"
+    answers:
+      - "Tomato"
+      - "Avocado"
+      - "Onion"
+      - "Lemon"
+    correctAnswerIndex: 1
+  - question: "Who was the first person to step on the Moon?"
+    answers:
+      - "Yuri Gagarin"
+      - "Buzz Aldrin"
+      - "Neil Armstrong"
+      - "John Glenn"
+    correctAnswerIndex: 2
+  - question: "What is the largest ocean on Earth?"
+    answers:
+      - "Atlantic Ocean"
+      - "Indian Ocean"
+      - "Arctic Ocean"
+      - "Pacific Ocean"
+    correctAnswerIndex: 3
+  - question: "Which of these is not a primary color?"
+    answers:
+      - "Red"
+      - "Blue"
+      - "Yellow"
+      - "Green"
+    correctAnswerIndex: 3
+  - question: "What is the capital of Australia?"
+    answers:
+      - "Sydney"
+      - "Melbourne"
+      - "Canberra"
+      - "Perth"
+    correctAnswerIndex: 2
+  - question: "Who wrote the Harry Potter book series?"
+    answers:
+      - "Roald Dahl"
+      - "J.K. Rowling"
+      - "C.S. Lewis"
+      - "Suzanne Collins"
+    correctAnswerIndex: 1
+  - question: "What is the hardest natural substance on Earth?"
+    answers:
+      - "Gold"
+      - "Iron"
+      - "Diamond"
+      - "Titanium"
+    correctAnswerIndex: 2
+  - question: "Which planet is closest to the Sun?"
+    answers:
+      - "Venus"
+      - "Earth"
+      - "Mars"
+      - "Mercury"
+    correctAnswerIndex: 3
+  - question: "What is the largest species of big cat?"
+    answers:
+      - "Lion"
+      - "Tiger"
+      - "Leopard"
+      - "Jaguar"
+    correctAnswerIndex: 1
+  - question: "In which year did World War II end?"
+    answers:
+      - "1943"
+      - "1944"
+      - "1945"
+      - "1946"
+    correctAnswerIndex: 2
+  - question: "What is the capital of Canada?"
+    answers:
+      - "Toronto"
+      - "Vancouver"
+      - "Montreal"
+      - "Ottawa"
+    correctAnswerIndex: 3
+  - question: "Which of these is not a type of cloud?"
+    answers:
+      - "Cumulus"
+      - "Stratus"
+      - "Nimbus"
+      - "Collegus"
+    correctAnswerIndex: 3
+  - question: "What is the largest continent by land area?"
+    answers:
+      - "North America"
+      - "Africa"
+      - "Asia"
+      - "Europe"
+    correctAnswerIndex: 2
+  - question: "Who invented the telephone?"
+    answers:
+      - "Thomas Edison"
+      - "Alexander Graham Bell"
+      - "Nikola Tesla"
+      - "Guglielmo Marconi"
+    correctAnswerIndex: 1
+  - question: "What is the chemical formula for water?"
+    answers:
+      - "CO2"
+      - "H2O"
+      - "NaCl"
+      - "O2"
+    correctAnswerIndex: 1
+  - question: "Which of these animals is not a mammal?"
+    answers:
+      - "Dolphin"
+      - "Bat"
+      - "Penguin"
+      - "Kangaroo"
+    correctAnswerIndex: 2
+
+russian:
+  - question: "Какая самая большая планета в нашей Солнечной системе?"
+    answers:
+      - "Сатурн"
+      - "Юпитер"
+      - "Нептун"
+      - "Уран"
+    correctAnswerIndex: 1
+  - question: "Кто написал пьесу 'Ромео и Джульетта'?"
+    answers:
+      - "Чарльз Диккенс"
+      - "Джейн Остин"
+      - "Уильям Шекспир"
+      - "Марк Твен"
+    correctAnswerIndex: 2
+  - question: "Какой химический символ у золота?"
+    answers:
+      - "Go"
+      - "Gd"
+      - "Au"
+      - "Ag"
+    correctAnswerIndex: 2
+  - question: "В какой стране находится Большой Барьерный риф?"
+    answers:
+      - "Бразилия"
+      - "Индонезия"
+      - "Филиппины"
+      - "Австралия"
+    correctAnswerIndex: 3
+  - question: "Какая столица Японии?"
+    answers:
+      - "Сеул"
+      - "Пекин"
+      - "Токио"
+      - "Бангкок"
+    correctAnswerIndex: 2
+  - question: "Кто нарисовал Мону Лизу?"
+    answers:
+      - "Винсент Ван Гог"
+      - "Пабло Пикассо"
+      - "Леонардо да Винчи"
+      - "Микеланджело"
+    correctAnswerIndex: 2
+  - question: "Какой самый большой орган в человеческом теле?"
+    answers:
+      - "Сердце"
+      - "Мозг"
+      - "Печень"
+      - "Кожа"
+    correctAnswerIndex: 3
+  - question: "Какую планету называют 'Утренней звездой' или 'Вечерней звездой'?"
+    answers:
+      - "Марс"
+      - "Венера"
+      - "Меркурий"
+      - "Юпитер"
+    correctAnswerIndex: 1
+  - question: "Какой основной ингредиент гуакамоле?"
+    answers:
+      - "Помидор"
+      - "Авокадо"
+      - "Лук"
+      - "Лимон"
+    correctAnswerIndex: 1
+  - question: "Кто был первым человеком, ступившим на Луну?"
+    answers:
+      - "Юрий Гагарин"
+      - "Базз Олдрин"
+      - "Нил Армстронг"
+      - "Джон Гленн"
+    correctAnswerIndex: 2
+  - question: "Какой самый большой океан на Земле?"
+    answers:
+      - "Атлантический океан"
+      - "Индийский океан"
+      - "Северный Ледовитый океан"
+      - "Тихий океан"
+    correctAnswerIndex: 3
+  - question: "Какой из этих цветов не является основным?"
+    answers:
+      - "Красный"
+      - "Синий"
+      - "Желтый"
+      - "Зеленый"
+    correctAnswerIndex: 3
+  - question: "Какая столица Австралии?"
+    answers:
+      - "Сидней"
+      - "Мельбурн"
+      - "Канберра"
+      - "Перт"
+    correctAnswerIndex: 2
+  - question: "Кто написал серию книг о Гарри Поттере?"
+    answers:
+      - "Роальд Даль"
+      - "Дж.К. Роулинг"
+      - "К.С. Льюис"
+      - "Сюзанна Коллинз"
+    correctAnswerIndex: 1
+  - question: "Какое самое твердое природное вещество на Земле?"
+    answers:
+      - "Золото"
+      - "Железо"
+      - "Алмаз"
+      - "Титан"
+    correctAnswerIndex: 2
+  - question: "Какая планета ближе всего к Солнцу?"
+    answers:
+      - "Венера"
+      - "Земля"
+      - "Марс"
+      - "Меркурий"
+    correctAnswerIndex: 3
+  - question: "Какой самый крупный вид большой кошки?"
+    answers:
+      - "Лев"
+      - "Тигр"
+      - "Леопард"
+      - "Ягуар"
+    correctAnswerIndex: 1
+  - question: "В каком году закончилась Вторая мировая война?"
+    answers:
+      - "1943"
+      - "1944"
+      - "1945"
+      - "1946"
+    correctAnswerIndex: 2
+  - question: "Какая столица Канады?"
+    answers:
+      - "Торонто"
+      - "Ванкувер"
+      - "Монреаль"
+      - "Оттава"
+    correctAnswerIndex: 3
+  - question: "Какой из этих не является типом облаков?"
+    answers:
+      - "Кучевые"
+      - "Слоистые"
+      - "Дождевые"
+      - "Коллегиальные"
+    correctAnswerIndex: 3
+  - question: "Какой самый большой континент по площади суши?"
+    answers:
+      - "Северная Америка"
+      - "Африка"
+      - "Азия"
+      - "Европа"
+    correctAnswerIndex: 2
+  - question: "Кто изобрел телефон?"
+    answers:
+      - "Томас Эдисон"
+      - "Александр Грэхем Белл"
+      - "Никола Тесла"
+      - "Гульельмо Маркони"
+    correctAnswerIndex: 1
+  - question: "Какая химическая формула воды?"
+    answers:
+      - "CO2"
+      - "H2O"
+      - "NaCl"
+      - "O2"
+    correctAnswerIndex: 1
+  - question: "Какое из этих животных не является млекопитающим?"
+    answers:
+      - "Дельфин"
+      - "Летучая мышь"
+      - "Пингвин"
+      - "Кенгуру"
+    correctAnswerIndex: 2
+
+hebrew:
+  - question: "מהו כוכב הלכת הגדול ביותר במערכת השמש שלנו?"
+    answers:
+      - "שבתאי"
+      - "צדק"
+      - "נפטון"
+      - "אורנוס"
+    correctAnswerIndex: 1
+  - question: "מי כתב את המחזה 'רומיאו ויוליה'?"
+    answers:
+      - "צ'ארלס דיקנס"
+      - "ג'יין אוסטין"
+      - "ויליאם שייקספיר"
+      - "מארק טוויין"
+    correctAnswerIndex: 2
+  - question: "מהו הסמל הכימי של זהב?"
+    answers:
+      - "Go"
+      - "Gd"
+      - "Au"
+      - "Ag"
+    correctAnswerIndex: 2
+  - question: "באיזו מדינה נמצא השונית הגדולה?"
+    answers:
+      - "ברזיל"
+      - "אינדונזיה"
+      - "פיליפינים"
+      - "אוסטרליה"
+    correctAnswerIndex: 3
+  - question: "מהי בירת יפן?"
+    answers:
+      - "סיאול"
+      - "בייג'ינג"
+      - "טוקיו"
+      - "בנגקוק"
+    correctAnswerIndex: 2
+  - question: "מי צייר את המונה ליזה?"
+    answers:
+      - "וינסנט ואן גוך"
+      - "פבלו פיקאסו"
+      - "ליאונרדו דה וינצ'י"
+      - "מיכלאנג'לו"
+    correctAnswerIndex: 2
+  - question: "מהו האיבר הגדול ביותר בגוף האדם?"
+    answers:
+      - "לב"
+      - "מוח"
+      - "כבד"
+      - "עור"
+    correctAnswerIndex: 3
+  - question: "איזה כוכב לכת ידוע בכינוי 'כוכב הבוקר' או 'כוכב הערב'?"
+    answers:
+      - "מאדים"
+      - "נוגה"
+      - "כוכב חמה"
+      - "צדק"
+    correctAnswerIndex: 1
+  - question: "מהו המרכיב העיקרי בגוואקמולה?"
+    answers:
+      - "עגבנייה"
+      - "אבוקדו"
+      - "בצל"
+      - "לימון"
+    correctAnswerIndex: 1
+  - question: "מי היה האדם הראשון שדרך על הירח?"
+    answers:
+      - "יורי גגארין"
+      - "באז אולדרין"
+      - "ניל ארמסטרונג"
+      - "ג'ון גלן"
+    correctAnswerIndex: 2
+  - question: "מהו האוקיינוס הגדול ביותר בכדור הארץ?"
+    answers:
+      - "האוקיינוס האטלנטי"
+      - "האוקיינוס ההודי"
+      - "האוקיינוס הארקטי"
+      - "האוקיינוס השקט"
+    correctAnswerIndex: 3
+  - question: "איזה מהבאים אינו צבע יסוד?"
+    answers:
+      - "אדום"
+      - "כחול"
+      - "צהוב"
+      - "ירוק"
+    correctAnswerIndex: 3
+  - question: "מהי בירת אוסטרליה?"
+    answers:
+      - "סידני"
+      - "מלבורן"
+      - "קנברה"
+      - "פרת'"
+    correctAnswerIndex: 2
+  - question: "מי כתב את סדרת הספרים 'הארי פוטר'?"
+    answers:
+      - "רואלד דאל"
+      - "ג'.ק. רולינג"
+      - "ק.ס. לואיס"
+      - "סוזן קולינס"
+    correctAnswerIndex: 1
+  - question: "מהו החומר הטבעי הקשה ביותר בכדור הארץ?"
+    answers:
+      - "זהב"
+      - "ברזל"
+      - "יהלום"
+      - "טיטניום"
+    correctAnswerIndex: 2
+  - question: "איזה כוכב לכת הוא הקרוב ביותר לשמש?"
+    answers:
+      - "נוגה"
+      - "כדור הארץ"
+      - "מאדים"
+      - "כוכב חמה"
+    correctAnswerIndex: 3
+  - question: "מהו המין הגדול ביותר של חתול גדול?"
+    answers:
+      - "אריה"
+      - "נמר"
+      - "ברדלס"
+      - "יגואר"
+    correctAnswerIndex: 1
+  - question: "באיזו שנה הסתיימה מלחמת העולם השנייה?"
+    answers:
+      - "1943"
+      - "1944"
+      - "1945"
+      - "1946"
+    correctAnswerIndex: 2
+  - question: "מהי בירת קנדה?"
+    answers:
+      - "טורונטו"
+      - "ונקובר"
+      - "מונטריאול"
+      - "אוטווה"
+    correctAnswerIndex: 3
+  - question: "איזה מהבאים אינו סוג של ענן?"
+    answers:
+      - "קומולוס"
+      - "סטרטוס"
+      - "נימבוס"
+      - "קולגוס"
+    correctAnswerIndex: 3
+  - question: "מהי היבשת הגדולה ביותר מבחינת שטח יבשתי?"
+    answers:
+      - "צפון אמריקה"
+      - "אפריקה"
+      - "אסיה"
+      - "אירופה"
+    correctAnswerIndex: 2
+  - question: "מי המציא את הטלפון?"
+    answers:
+      - "תומס אדיסון"
+      - "אלכסנדר גרהם בל"
+      - "ניקולה טסלה"
+      - "גוליילמו מרקוני"
+    correctAnswerIndex: 1
+  - question: "מהי הנוסחה הכימית של מים?"
+    answers:
+      - "CO2"
+      - "H2O"
+      - "NaCl"
+      - "O2"
+    correctAnswerIndex: 1
+  - question: "איזה מהחיות הבאות אינה יונק?"
+    answers:
+      - "דולפין"
+      - "עטלף"
+      - "פינגווין"
+      - "קנגורו"
+    correctAnswerIndex: 2

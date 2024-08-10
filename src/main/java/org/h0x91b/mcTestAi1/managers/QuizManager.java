@@ -23,12 +23,13 @@ import java.util.logging.Logger;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class QuizManager {
     private final Config config;
     private final List<ArmorStand> holograms = new ArrayList<>();
     private List<Location> quizButtonLocations;
-    private final List<Question> questions = new ArrayList<>();
+    private final Map<String, List<Question>> questions = new HashMap<>();
     private final Random random = new Random();
     private Question currentQuestion;
     private final Provider<DayNightManager> dayNightManagerProvider;
@@ -37,6 +38,7 @@ public class QuizManager {
     private final JavaPlugin plugin;
     private final Map<Location, Boolean> buttonStates = new ConcurrentHashMap<>();
     private List<Question> unusedQuestions;
+    private String currentLanguage = "russian";
 
     @Inject
     public QuizManager(JavaPlugin plugin, Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
@@ -55,23 +57,24 @@ public class QuizManager {
     }
 
     private void initializeQuestions() {
-        questions.add(new Question("What is the capital of France?",
-                List.of("London", "Berlin", "Paris", "Madrid"), 2));
-        questions.add(new Question("Which planet is known as the Red Planet?",
-                List.of("Venus", "Mars", "Jupiter", "Saturn"), 1));
-        questions.add(new Question("What is the largest mammal in the world?",
-                List.of("Elephant", "Blue Whale", "Giraffe", "Hippopotamus"), 1));
+        List<String> supportedLanguages = List.of("english", "russian");
+        for (String language : supportedLanguages) {
+            questions.put(language, config.getQuestions(language));
+        }
+        if (questions.values().stream().allMatch(List::isEmpty)) {
+            logger.severe("No questions loaded for any language. Please check your questions.yml file.");
+        }
     }
 
     public void startQuiz() {
-        if (questions.isEmpty()) {
-            throw new IllegalStateException("No questions available for the quiz!");
+        if (questions.get(currentLanguage).isEmpty()) {
+            throw new IllegalStateException("No questions available for the quiz in the current language!");
         }
         removeAllHolograms();
         updateQuizButtonLocations();
 
         if (unusedQuestions == null || unusedQuestions.isEmpty()) {
-            unusedQuestions = new ArrayList<>(questions);
+            unusedQuestions = new ArrayList<>(questions.get(currentLanguage));
             Collections.shuffle(unusedQuestions);
         }
 
@@ -335,5 +338,16 @@ public class QuizManager {
                location.getX() >= classroomLoc.getX() && location.getX() < classroomLoc.getX() + width &&
                location.getY() >= classroomLoc.getY() && location.getY() < classroomLoc.getY() + height &&
                location.getZ() >= classroomLoc.getZ() && location.getZ() < classroomLoc.getZ() + length;
+    }
+
+    public void setLanguage(String language) {
+        if (questions.containsKey(language)) {
+            this.currentLanguage = language;
+            unusedQuestions = null; // Reset unused questions to force reloading in the new language
+            logger.info("Quiz language changed to: " +
+             language);
+        } else {
+            logger.warning("Attempted to set unsupported language: " + language);
+        }
     }
 }
