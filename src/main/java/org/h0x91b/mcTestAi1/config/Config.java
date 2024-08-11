@@ -1,6 +1,7 @@
 package org.h0x91b.mcTestAi1.config;
 
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -117,5 +118,33 @@ public class Config {
             logger.warning("Invalid incorrect answer sound in config: " + soundName + ". Using default.");
             return Sound.ENTITY_VILLAGER_NO;
         }
+    }
+
+    public Particle getCorrectAnswerParticle() {
+        String particleName = plugin.getConfig().getString("quiz.particles.correct.type", Particle.HAPPY_VILLAGER.name());
+        try {
+            return Particle.valueOf(particleName);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Invalid correct answer particle in config: " + particleName + ". Using default.");
+            return Particle.HAPPY_VILLAGER;
+        }
+    }
+
+    public Particle getIncorrectAnswerParticle() {
+        String particleName = plugin.getConfig().getString("quiz.particles.incorrect.type", Particle.SMOKE.name());
+        try {
+            return Particle.valueOf(particleName);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Invalid incorrect answer particle in config: " + particleName + ". Using default.");
+            return Particle.SMOKE;
+        }
+    }
+
+    public int getCorrectAnswerParticleCount() {
+        return plugin.getConfig().getInt("quiz.particles.correct.count", 50);
+    }
+
+    public int getIncorrectAnswerParticleCount() {
+        return plugin.getConfig().getInt("quiz.particles.incorrect.count", 30);
     }
 }
