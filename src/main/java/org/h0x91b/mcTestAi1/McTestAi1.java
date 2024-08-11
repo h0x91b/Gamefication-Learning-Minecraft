@@ -12,6 +12,7 @@ import org.h0x91b.mcTestAi1.managers.ClassroomManager;
 import org.h0x91b.mcTestAi1.managers.DayNightManager;
 import org.h0x91b.mcTestAi1.managers.InventoryManager;
 import org.h0x91b.mcTestAi1.managers.QuizManager;
+import org.h0x91b.mcTestAi1.commands.LanguageCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ArmorStand;
@@ -37,6 +38,7 @@ public final class McTestAi1 extends JavaPlugin {
             binder.bind(InventoryManager.class).asEagerSingleton();
             binder.bind(EventListener.class).asEagerSingleton();
             binder.bind(ButtonClickListener.class).asEagerSingleton();
+            binder.bind(LanguageCommand.class).asEagerSingleton();
         });
 
         // Инициализация менеджеров
@@ -60,6 +62,10 @@ public final class McTestAi1 extends JavaPlugin {
         if (dayNightManager.isNight()) {
             quizManager.startQuiz();
         }
+
+        // Register the new language command
+        LanguageCommand languageCommand = injector.getInstance(LanguageCommand.class);
+        getCommand("language").setExecutor(languageCommand);
 
         getLogger().info("mcTestAi1 плагин загружен и готов отжигать!");
     }

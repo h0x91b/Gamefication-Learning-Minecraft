@@ -5,6 +5,9 @@ This file contains tasks, improvements, and features that are planned or need to
 ## High Priority
 
 - [ ] Implement client language detection using Player.getLocale() and send localized messages accordingly
+- [ ] Implement the quiz language selector in the Classroom (it should switch language)
+- [x] Implement the quiz language changer command /language <russian|hebrew|english>
+- [x] Ensure language changes immediately affect ongoing quizzes during night time
 - [x] Prevent from renaming signs in the classroom
 - [x] After pressing incorrect button all buttons became not active anymore
 - [ ] Implement inventory management system to lock player inventories during night/quiz time
@@ -17,7 +20,7 @@ This file contains tasks, improvements, and features that are planned or need to
 - [x] Implement a 3-second cooldown with button disappearance after an incorrect answer
 - [x] Add a 1-second cooldown with button disappearance after a correct answer
 - [x] Move all questions and answers from code to a YAML configuration file
-- [ ] Implement language selection support for Russian, Hebrew, and English
+- [x] Implement language selection support for Russian, Hebrew, and English
 - [x] Show earned time after each correct answer
 - [x] Optimize classroom cleanup process to occur only once at game start
 - [x] Improve quiz button setup and management
