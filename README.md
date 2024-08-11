@@ -4,7 +4,7 @@ McTestAi1 is an innovative Minecraft plugin that transforms the game into an int
 
 ## Quick Start
 
-For a comprehensive understanding of the plugin's concept, features, and goals, please refer to our [idea.md](idea.md) file.
+For a comprehensive understanding of the plugin's concept, features, and goals, please refer to our [Idea.md](Idea.md) file.
 
 ## Key Features
 
@@ -19,5 +19,5 @@ For a comprehensive understanding of the plugin's concept, features, and goals, 
 2. Configure the `config.yml` and `questions.yml` files
 3. Start your server and enjoy the educational experience!
 
-For more detailed information, installation instructions, and contribution guidelines, please check our [idea.md](idea.md) file.
+For more detailed information, installation instructions, and contribution guidelines, please check our [Idea.md](Idea.md) file.
 
