@@ -181,9 +181,10 @@ public class QuizManager {
         }
 
         logger.info("Updating quiz buttons for question: " + currentQuestion.getQuestion());
-        for (int i = 0; i < quizButtonLocations.size() && i < currentQuestion.getAnswers().size(); i++) {
+        List<String> randomizedAnswers = currentQuestion.getAnswers();
+        for (int i = 0; i < quizButtonLocations.size() && i < randomizedAnswers.size(); i++) {
             Location buttonLoc = quizButtonLocations.get(i);
-            String answerText = currentQuestion.getAnswers().get(i);
+            String answerText = randomizedAnswers.get(i);
             String buttonLabel = String.valueOf((char)('A' + i));
             updateButtonSign(buttonLoc, buttonLabel, answerText);
         }
@@ -293,10 +294,11 @@ public class QuizManager {
     }
 
     private String getCorrectAnswerWithLetter(Question question) {
-        for (int i = 0; i < question.getAnswers().size(); i++) {
+        List<String> answers = question.getAnswers();
+        for (int i = 0; i < answers.size(); i++) {
             if (question.isCorrectAnswer(i)) {
                 char letter = (char)('A' + i);
-                return letter + " - " + question.getAnswers().get(i);
+                return letter + " - " + answers.get(i);
             }
         }
         return "Ответ не найден";
@@ -338,6 +340,7 @@ public class QuizManager {
 
                 int minX = classroomLocation.getBlockX() - (width / 2);
                 int minY = classroomLocation.getBlockY() - 1;
+                
                 int minZ = classroomLocation.getBlockZ() - (length / 2);
                 int maxX = minX + width;
                 int maxY = minY + height;
