@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Implemented language selection command (/language <russian|hebrew|english>)
 - Implemented randomization of answer order on quiz buttons
 - Implemented prevention of sign renaming within the classroom
 - Implemented question rotation system to prevent repetition
@@ -13,19 +14,27 @@
 - Added sound effects for correct and incorrect quiz answers
 
 ### Changed
+- Updated language command to be accessible without special permissions
+- Simplified language command usage for all players
+- Updated QuizManager to handle language changes during runtime
 - Refactored QuizManager to improve question selection and management
 - Updated question loading process to support multiple languages from questions.yml
 - Modified DayNightManager to handle more precise time announcements
 - Improved error handling and logging throughout the plugin
 - Updated Question class to handle randomized answer order
 - Updated Config class to load sound effect settings from config.yml
+- Modified language selection to immediately shuffle and restart the quiz when changed during night time
+- Updated LanguageCommand to provide more specific feedback based on day/night cycle
 
 ### Improved
+- Enhanced accessibility of language selection for quizzes
+- Enhanced multilingual support for quizzes
 - Enhanced quiz experience with better question variety and language support
 - Optimized question management to ensure all questions are used before repeating
 - Improved plugin stability and error resilience
 - Enhanced quiz randomization to prevent answer pattern recognition
 - Enhanced audio feedback for quiz participants with sound effects
+- Enhanced quiz experience by ensuring language changes take immediate effect during night time
 
 ### Fixed
 - Addressed issues with question repetition and randomization

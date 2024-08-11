@@ -8,5 +8,8 @@ commands:
   createroom:
     description: Creates a 10x10x5 room at height 200
     usage: /<command>
+  language:
+    description: Changes the quiz language
+    usage: /<command> <russian|hebrew|english>
 
 config: questions.yml

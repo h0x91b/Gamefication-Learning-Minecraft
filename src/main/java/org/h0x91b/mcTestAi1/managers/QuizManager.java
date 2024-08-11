@@ -419,8 +419,15 @@ public class QuizManager {
     public void setLanguage(String language) {
         if (questions.containsKey(language)) {
             this.currentLanguage = language;
-            unusedQuestions = null;
+            resetQuestionPool();
             logger.info("Quiz language changed to: " + language);
+
+            // Check if it's night time and restart the quiz if necessary
+            if (dayNightManagerProvider.get().isNight()) {
+                logger.info("Restarting quiz with new language during night time");
+                cleanupQuiz();
+                startQuiz();
+            }
         } else {
             logger.warning("Attempted to set unsupported language: " + language);
         }
