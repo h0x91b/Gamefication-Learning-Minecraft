@@ -5,6 +5,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.h0x91b.mcTestAi1.models.Question;
+import org.bukkit.Sound;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -96,5 +97,25 @@ public class Config {
 
         logger.info("Successfully loaded " + questions.size() + " valid questions for language: " + language);
         return questions;
+    }
+
+    public Sound getCorrectAnswerSound() {
+        String soundName = plugin.getConfig().getString("quiz.sounds.correct", Sound.ENTITY_PLAYER_LEVELUP.name());
+        try {
+            return Sound.valueOf(soundName);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Invalid correct answer sound in config: " + soundName + ". Using default.");
+            return Sound.ENTITY_PLAYER_LEVELUP;
+        }
+    }
+
+    public Sound getIncorrectAnswerSound() {
+        String soundName = plugin.getConfig().getString("quiz.sounds.incorrect", Sound.ENTITY_VILLAGER_NO.name());
+        try {
+            return Sound.valueOf(soundName);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Invalid incorrect answer sound in config: " + soundName + ". Using default.");
+            return Sound.ENTITY_VILLAGER_NO;
+        }
     }
 }

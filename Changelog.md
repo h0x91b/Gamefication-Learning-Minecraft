@@ -10,6 +10,7 @@
 - Implemented a system to slightly favor questions that haven't been asked in a long time
 - Added configuration option to control how many nights should pass before questions can be repeated
 - Expanded question set with more varied topics and difficulty levels
+- Added sound effects for correct and incorrect quiz answers
 
 ### Changed
 - Refactored QuizManager to improve question selection and management
@@ -17,12 +18,14 @@
 - Modified DayNightManager to handle more precise time announcements
 - Improved error handling and logging throughout the plugin
 - Updated Question class to handle randomized answer order
+- Updated Config class to load sound effect settings from config.yml
 
 ### Improved
 - Enhanced quiz experience with better question variety and language support
 - Optimized question management to ensure all questions are used before repeating
 - Improved plugin stability and error resilience
 - Enhanced quiz randomization to prevent answer pattern recognition
+- Enhanced audio feedback for quiz participants with sound effects
 
 ### Fixed
 - Addressed issues with question repetition and randomization
