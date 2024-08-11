@@ -12,3 +12,8 @@ day:
     y: 76
     z: 60
     world: world
+
+quiz:
+  sounds:
+    correct: ENTITY_PLAYER_LEVELUP
+    incorrect: ENTITY_VILLAGER_NO

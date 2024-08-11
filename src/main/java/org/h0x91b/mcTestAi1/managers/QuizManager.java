@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,11 @@ public class QuizManager {
     private List<Question> usedQuestions;
     private final int RECENT_QUESTIONS_TO_AVOID = 5;
     private LinkedList<Question> recentlyUsedQuestions = new LinkedList<>();
+
+    private static final Sound DEFAULT_CORRECT_SOUND = Sound.ENTITY_PLAYER_LEVELUP;
+    private static final Sound DEFAULT_INCORRECT_SOUND = Sound.ENTITY_VILLAGER_NO;
+    private static final float DEFAULT_VOLUME = 1.0f;
+    private static final float DEFAULT_PITCH = 1.0f;
 
     @Inject
     public QuizManager(JavaPlugin plugin, Config config, Provider<DayNightManager> dayNightManagerProvider, ClassroomManager classroomManager) {
@@ -228,14 +234,22 @@ public class QuizManager {
         if (isCorrect) {
             int additionalTime = dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
             player.sendMessage(ChatColor.GREEN + "Правильно! Твой следующий день будет на " + additionalTime + " " + getSecondsWord(additionalTime) + " длиннее!");
+            playSoundToPlayer(player, config.getCorrectAnswerSound());
             scheduleButtonReEnable(1);
         } else {
             String correctAnswer = getCorrectAnswerWithLetter(currentQuestion);
             player.sendMessage(ChatColor.RED + "Неправильно. Правильный ответ был: " + correctAnswer);
+            playSoundToPlayer(player, config.getIncorrectAnswerSound());
             scheduleButtonReEnable(3);
         }
 
         logger.info("Answer processed. Correct: " + isCorrect + ". Buttons will be re-enabled shortly.");
+    }
+
+    private void playSoundToPlayer(Player player, Sound sound) {
+        if (player != null && sound != null) {
+            player.playSound(player.getLocation(), sound, DEFAULT_VOLUME, DEFAULT_PITCH);
+        }
     }
 
     private void scheduleButtonReEnable(int seconds) {
