@@ -3,6 +3,20 @@
 ## [Unreleased]
 
 ### Added
+- Implemented visual effects (particle effects) for correct and incorrect quiz answers
+- Added configuration options for customizing particle effects in config.yml
+- Implemented particle spawning logic in QuizManager
+
+### Changed
+- Updated Config class to load and provide particle effect settings
+- Modified QuizManager to spawn particle effects when processing answers
+- Updated config.yml to include new particle effect configurations
+
+### Improved
+- Enhanced visual feedback for quiz participants with particle effects
+- Improved configurability of quiz feedback mechanisms
+
+### Added
 - Implemented language selection command (/language <russian|hebrew|english>)
 - Implemented randomization of answer order on quiz buttons
 - Implemented prevention of sign renaming within the classroom

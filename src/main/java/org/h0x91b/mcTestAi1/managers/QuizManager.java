@@ -16,6 +16,7 @@ import org.h0x91b.mcTestAi1.config.Config;
 import org.h0x91b.mcTestAi1.models.Question;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.Particle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -235,11 +236,13 @@ public class QuizManager {
             int additionalTime = dayNightManagerProvider.get().addScore(player.getUniqueId(), 1);
             player.sendMessage(ChatColor.GREEN + "Правильно! Твой следующий день будет на " + additionalTime + " " + getSecondsWord(additionalTime) + " длиннее!");
             playSoundToPlayer(player, config.getCorrectAnswerSound());
+            spawnParticles(buttonLoc, true);
             scheduleButtonReEnable(1);
         } else {
             String correctAnswer = getCorrectAnswerWithLetter(currentQuestion);
             player.sendMessage(ChatColor.RED + "Неправильно. Правильный ответ был: " + correctAnswer);
             playSoundToPlayer(player, config.getIncorrectAnswerSound());
+            spawnParticles(buttonLoc, false);
             scheduleButtonReEnable(3);
         }
 
@@ -431,5 +434,27 @@ public class QuizManager {
         } else {
             logger.warning("Attempted to set unsupported language: " + language);
         }
+    }
+
+    private void spawnParticles(Location location, boolean correct) {
+        Particle particleType = correct ? config.getCorrectAnswerParticle() : config.getIncorrectAnswerParticle();
+        int particleCount = correct ? config.getCorrectAnswerParticleCount() : config.getIncorrectAnswerParticleCount();
+
+        try {
+            World world = location.getWorld();
+            if (world != null) {
+                for (Player player : world.getPlayers()) {
+                    if (isPlayerInClassroom(player)) {
+                        player.spawnParticle(particleType, location, particleCount, 0.5, 0.5, 0.5, 0.1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.warning("Error spawning particles: " + e.getMessage());
+        }
+    }
+
+    private boolean isPlayerInClassroom(Player player) {
+        return classroomManager.isClassroomBlock(player.getLocation());
     }
 }

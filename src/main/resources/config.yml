@@ -17,3 +17,10 @@ quiz:
   sounds:
     correct: ENTITY_PLAYER_LEVELUP
     incorrect: ENTITY_VILLAGER_NO
+  particles:
+    correct:
+      type: HAPPY_VILLAGER
+      count: 50
+    incorrect:
+      type: SMOKE
+      count: 30

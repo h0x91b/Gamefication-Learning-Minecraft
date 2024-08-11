@@ -25,6 +25,7 @@ This file contains tasks, improvements, and features that are planned or need to
 - [x] Optimize classroom cleanup process to occur only once at game start
 - [x] Improve quiz button setup and management
 - [x] Randomize order of answers e.g. buttons
+- [x] Add visual effects for correct/incorrect answers (particle effects)
 - [ ] Consider implementing a weighted randomization system to slightly favor questions that haven't been asked in a long time
 - [ ] Add a configuration option to control how many nights should pass before questions can be repeated
 - [ ] Add to the best player some cool effect for the next day
@@ -34,7 +35,6 @@ This file contains tasks, improvements, and features that are planned or need to
 
 - [ ] Integrate with an external API for dynamic question generation
 - [ ] Implement a leaderboard system for quiz scores
-- [ ] Add visual effects for correct/incorrect answers (particle effects, etc.)
 - [x] Create a configuration option for customizing day/night durations
 - [ ] Implement a system for saving and loading classroom locations across server restarts
 - [ ] Add more varied question types (e.g., multiple choice, true/false, fill in the blank)
