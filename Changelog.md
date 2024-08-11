@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### Added
+- Implemented randomization of answer order on quiz buttons
 - Implemented prevention of sign renaming within the classroom
 - Implemented question rotation system to prevent repetition
 - Added support for multiple languages (Russian, Hebrew, and English) in questions.yml
@@ -15,11 +16,13 @@
 - Updated question loading process to support multiple languages from questions.yml
 - Modified DayNightManager to handle more precise time announcements
 - Improved error handling and logging throughout the plugin
+- Updated Question class to handle randomized answer order
 
 ### Improved
 - Enhanced quiz experience with better question variety and language support
 - Optimized question management to ensure all questions are used before repeating
 - Improved plugin stability and error resilience
+- Enhanced quiz randomization to prevent answer pattern recognition
 
 ### Fixed
 - Addressed issues with question repetition and randomization
